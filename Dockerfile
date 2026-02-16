@@ -12,7 +12,7 @@ COPY scripts scripts/
 # Copy all projects
 COPY angular-shell angular-shell/
 COPY Scramble-Words Scramble-Words/
-COPY game12 game12/
+COPY life-goals life-goals/
 COPY quiz-game quiz-game/
 
 # Install pnpm globally

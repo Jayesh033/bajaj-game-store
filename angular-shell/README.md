@@ -35,7 +35,7 @@ ng serve
 cd ../Scramble-Words && pnpm dev
 
 # Game 2 - Life Goals (port 5002)
-cd ../game12 && pnpm dev
+cd ../life-goals && pnpm dev
 
 # Game 3 - Quiz Game (port 5003)
 cd ../quiz-game && pnpm dev

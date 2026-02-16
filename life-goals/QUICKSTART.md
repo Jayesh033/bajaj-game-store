@@ -74,7 +74,7 @@ app-store/                        # Root workspace
 │   └── copy-games.js            # Copies games to Shell assets
 ├── angular-shell/               # Shell (host)
 ├── Scramble-Words/              # Game 1
-├── game12/                      # Game 2 (life-goals)
+├── life-goals/                      # Game 2 (life-goals)
 └── quiz-game/                   # Game 3
 ```
 

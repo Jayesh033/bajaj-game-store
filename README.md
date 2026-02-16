@@ -67,7 +67,7 @@ app-store/                           # pnpm workspace root
 │   └── src/assets/federation.manifest.json
 │
 ├── Scramble-Words/                 # React Game 1
-├── game12/                         # React Game 2 (life-goals)
+├── life-goals/                         # React Game 2 (life-goals)
 └── quiz-game/                      # React Game 3
 ```
 
@@ -183,7 +183,7 @@ cp -r angular-shell/dist/angular-shell/browser/* /var/www/html/
 packages:
   - "angular-shell"
   - "Scramble-Words"
-  - "game12"
+  - "life-goals"
   - "quiz-game"
 ```
 
@@ -223,7 +223,7 @@ pnpm serve:prod
 
 ```bash
 # Just work on Life Goals
-cd game12
+cd life-goals
 pnpm dev
 
 # In another terminal, run Shell
