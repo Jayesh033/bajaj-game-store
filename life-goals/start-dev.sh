@@ -29,7 +29,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "📦 Installing dependencies if needed..."
 cd "$SCRIPT_DIR/angular-shell" && pnpm install --silent &
 cd "$SCRIPT_DIR/Scramble-Words" && pnpm install --silent &
-cd "$SCRIPT_DIR/game12" && pnpm install --silent &
+cd "$SCRIPT_DIR/life-goals" && pnpm install --silent &
 cd "$SCRIPT_DIR/quiz-game" && pnpm install --silent &
 wait
 
@@ -55,7 +55,7 @@ sleep 1
 
 # Start Game 2 - Life Goals
 echo "  🎯 Life Goals (Port 5002)"
-cd "$SCRIPT_DIR/game12"
+cd "$SCRIPT_DIR/life-goals"
 start cmd /k "cd /d %CD% && pnpm dev"
 
 sleep 1

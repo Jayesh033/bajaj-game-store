@@ -52,7 +52,7 @@ pnpm install
 cd Scramble-Words
 pnpm install
 
-cd ../game12
+cd ../life-goals
 pnpm install
 
 cd ../quiz-game
@@ -76,7 +76,7 @@ cd Scramble-Words
 pnpm dev  # Runs on port 5001
 
 # Terminal 2
-cd game12
+cd life-goals
 pnpm dev  # Runs on port 5002
 
 # Terminal 3
@@ -103,7 +103,7 @@ pnpm build
 # Output: dist/
 
 # Build Life Goals
-cd game12
+cd life-goals
 pnpm build
 # Output: dist/
 
@@ -169,7 +169,7 @@ pnpm build
 scp -r dist/* user@server:/var/www/balicuat.bajajlifeinsurance.com/gamification/scramble-words/
 
 # Life Goals
-cd game12
+cd life-goals
 pnpm build
 scp -r dist/* user@server:/var/www/balicuat.bajajlifeinsurance.com/gamification/life-goals/
 
@@ -202,7 +202,7 @@ pnpm build
 rsync -avz --delete dist/ $BASE_PATH/scramble-words/
 
 echo "Building Life Goals..."
-cd ../game12
+cd ../life-goals
 pnpm build
 rsync -avz --delete dist/ $BASE_PATH/life-goals/
 
