@@ -33,7 +33,7 @@ const games = [
   {
     name: 'retirement-readiness-journey',
     source: path.join(ROOT_DIR, 'retirement-readiness-journey', 'dist'),
-    destination: path.join(SHELL_GAMES_DIR, 'life-milestone-race')
+    destination: path.join(SHELL_GAMES_DIR, 'retirement-readiness-journey')
   }
 ];
 
