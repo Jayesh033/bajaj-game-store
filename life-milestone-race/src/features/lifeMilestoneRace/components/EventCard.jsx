@@ -67,43 +67,43 @@ const EventCard = memo(function EventCard({ event }) {
             className="w-full"
         >
             <div
-                className="w-full text-center space-y-5"
+                className="w-full text-center space-y-4 flex flex-col items-center justify-center h-full"
                 style={{
-                    background: 'rgba(255, 255, 255, 0.9)',
-                    backdropFilter: 'blur(12px)',
-                    borderRadius: '24px',
-                    border: '3px solid #FFFFFF',
-                    padding: '2rem 1.5rem',
-                    boxShadow: '0 8px 32px rgba(0, 102, 178, 0.15), 0 4px 12px rgba(0, 102, 178, 0.1)',
+                    background: 'rgba(255, 255, 255, 0.92)',
+                    backdropFilter: 'blur(16px)',
+                    borderRadius: '28px',
+                    border: '4px solid #FFFFFF',
+                    padding: '2rem 1.75rem',
+                    boxShadow: '0 12px 40px rgba(0, 74, 128, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05)',
                 }}
             >
-                {/* Impact tag — orange badge for High, blue for Medium */}
-                <div className="flex justify-center">
+                {/* Impact tag */}
+                <div className="flex justify-center mb-1">
                     <span
-                        className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[0.8125rem] font-black uppercase tracking-wider"
+                        className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[0.85rem] font-black uppercase tracking-wider transform transition-transform"
                         style={{
                             backgroundColor: impact.bg,
                             color: impact.text,
-                            boxShadow: impact.glow !== 'none' ? `0 0 12px ${impact.glow}` : undefined,
+                            boxShadow: impact.glow !== 'none' ? `0 0 16px ${impact.glow}` : undefined,
                         }}
                     >
-                        <ImpactIcon size={14} />
+                        <ImpactIcon size={16} strokeWidth={3} />
                         {impact.label}
                     </span>
                 </div>
 
-                {/* Event title — large, bold, centered */}
+                {/* Event title - HERO */}
                 <h3
-                    className="font-black text-blue-950 leading-tight"
-                    style={{ fontSize: '1.5rem', letterSpacing: '-0.02em' }}
+                    className="font-black text-blue-950 leading-tight drop-shadow-sm"
+                    style={{ fontSize: '1.75rem', letterSpacing: '-0.03em' }}
                 >
                     {event.title}
                 </h3>
 
-                {/* Description — 18px minimum */}
+                {/* Description */}
                 <p
-                    className="text-blue-900/70 leading-relaxed max-w-xs mx-auto"
-                    style={{ fontSize: '1.0625rem' }}
+                    className="text-blue-900/80 leading-relaxed max-w-[280px] mx-auto font-medium"
+                    style={{ fontSize: '1.125rem' }}
                 >
                     {event.description}
                 </p>

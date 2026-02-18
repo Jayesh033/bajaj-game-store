@@ -22,97 +22,97 @@ const DecisionButtons = memo(function DecisionButtons({
     }, [timeLeft]);
 
     return (
-        <div className="w-full flex flex-col items-center gap-5">
-            {/* Timer badge — large floating orange circle */}
-            <div className="flex flex-col items-center gap-3">
+        <div className="w-full flex flex-col items-center gap-3">
+            {/* Timer badge */}
+            <div className="flex flex-col items-center gap-1 -mb-2 z-10">
                 <motion.div
-                    className="relative flex items-center justify-center"
+                    className="relative flex items-center justify-center bg-white rounded-full p-1"
                     style={{
-                        width: 72,
-                        height: 72,
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #FF8C00 0%, #FF6600 100%)',
-                        boxShadow: '0 0 30px rgba(255, 140, 0, 0.4), 0 4px 16px rgba(255, 102, 0, 0.3)',
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.1)'
                     }}
-                    animate={
-                        isUrgent
-                            ? { scale: [1, 1.08, 1], boxShadow: ['0 0 30px rgba(255, 140, 0, 0.4)', '0 0 50px rgba(255, 102, 0, 0.7)', '0 0 30px rgba(255, 140, 0, 0.4)'] }
-                            : { y: [0, -4, 0] }
-                    }
-                    transition={
-                        isUrgent
-                            ? { duration: 0.5, repeat: Infinity }
-                            : { duration: 2.5, repeat: Infinity, ease: 'easeInOut' }
-                    }
                 >
-                    <span className="text-[2rem] font-black text-white leading-none">
-                        {timeLeft}
-                    </span>
-
-                    {/* SVG ring progress */}
-                    <svg
-                        className="absolute inset-0 w-full h-full -rotate-90"
-                        viewBox="0 0 72 72"
+                    <motion.div
+                        className="relative flex items-center justify-center rounded-full"
+                        style={{
+                            width: 76,
+                            height: 76,
+                            background: 'linear-gradient(135deg, #FF8C00 0%, #FF6600 100%)',
+                            boxShadow: 'inset 0 4px 6px rgba(0,0,0,0.1)',
+                        }}
+                        animate={
+                            isUrgent
+                                ? { scale: [1, 1.05, 1] }
+                                : { scale: 1 }
+                        }
+                        transition={{ duration: 0.5, repeat: isUrgent ? Infinity : 0 }}
                     >
-                        <circle
-                            cx="36"
-                            cy="36"
-                            r="34"
-                            fill="none"
-                            stroke="rgba(255,255,255,0.25)"
-                            strokeWidth="3"
-                        />
-                        <circle
-                            cx="36"
-                            cy="36"
-                            r="34"
-                            fill="none"
-                            stroke="#fff"
-                            strokeWidth="3"
-                            strokeDasharray={`${2 * Math.PI * 34}`}
-                            strokeDashoffset={`${2 * Math.PI * 34 * (1 - timerProgress / 100)}`}
-                            strokeLinecap="round"
-                            className="transition-all duration-1000 ease-linear"
-                        />
-                    </svg>
-                </motion.div>
+                        <span className="text-[2.25rem] font-black text-white leading-none drop-shadow-md">
+                            {timeLeft}
+                        </span>
 
-                <span className="text-[1rem] font-bold text-blue-950 tracking-wide">
-                    {isUrgent ? 'Decide Now!' : 'Make Your Choice'}
-                </span>
+                        {/* Ring */}
+                        <svg
+                            className="absolute inset-0 w-full h-full -rotate-90"
+                            viewBox="0 0 76 76"
+                        >
+                            <circle
+                                cx="38"
+                                cy="38"
+                                r="34"
+                                fill="none"
+                                stroke="rgba(255,255,255,0.2)"
+                                strokeWidth="4"
+                            />
+                            <circle
+                                cx="38"
+                                cy="38"
+                                r="34"
+                                fill="none"
+                                stroke="#fff"
+                                strokeWidth="4"
+                                strokeDasharray={`${2 * Math.PI * 34}`}
+                                strokeDashoffset={`${2 * Math.PI * 34 * (1 - timerProgress / 100)}`}
+                                strokeLinecap="round"
+                                className="transition-all duration-1000 ease-linear"
+                            />
+                        </svg>
+                    </motion.div>
+                </motion.div>
             </div>
 
-            {/* Buttons — stacked, full width, 60px height each */}
-            <div className="w-full flex flex-col gap-4">
-                {/* Primary — I'm Protected (Orange) */}
+            {/* Buttons */}
+            <div className="w-full flex flex-col gap-3 pt-2">
+                {/* Primary — I'm Protected */}
                 <motion.button
                     onClick={() => onDecision('protected')}
                     disabled={disabled}
-                    whileTap={{ scale: 0.97 }}
-                    className="w-full flex items-center justify-center gap-2 font-black text-white text-[1.125rem] uppercase tracking-wider transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full flex items-center justify-center gap-2 font-black text-white text-[1.2rem] uppercase tracking-wider transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
-                        height: '60px',
-                        borderRadius: '16px',
+                        height: '66px',
+                        borderRadius: '20px',
                         background: 'linear-gradient(135deg, #FF8C00 0%, #FF6600 100%)',
-                        boxShadow: '0 0 20px rgba(255, 140, 0, 0.35), 0 4px 0 #CC5500',
+                        boxShadow: '0 8px 20px rgba(255, 140, 0, 0.3), 0 4px 0 #CC5500',
+                        textShadow: '0 1px 2px rgba(0,0,0,0.1)'
                     }}
                     id="btn-protected"
                 >
                     🛡️ I&apos;m Protected
                 </motion.button>
 
-                {/* Secondary — I'm Exposed (Blue) */}
+                {/* Secondary — I'm Exposed */}
                 <motion.button
                     onClick={() => onDecision('exposed')}
                     disabled={disabled}
-                    whileTap={{ scale: 0.97 }}
-                    className="w-full flex items-center justify-center gap-2 font-black text-white text-[1.125rem] uppercase tracking-wider transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full flex items-center justify-center gap-2 font-black text-white text-[1.2rem] uppercase tracking-wider transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
-                        height: '60px',
-                        borderRadius: '16px',
+                        height: '66px',
+                        borderRadius: '20px',
                         background: 'linear-gradient(135deg, #0066B2 0%, #3B82F6 100%)',
                         border: '2px solid rgba(255, 255, 255, 0.2)',
-                        boxShadow: '0 4px 0 #004A80',
+                        boxShadow: '0 8px 20px rgba(0, 74, 128, 0.25), 0 4px 0 #004A80',
+                        textShadow: '0 1px 2px rgba(0,0,0,0.1)'
                     }}
                     id="btn-exposed"
                 >

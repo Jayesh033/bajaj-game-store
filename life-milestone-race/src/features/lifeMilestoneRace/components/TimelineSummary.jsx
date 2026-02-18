@@ -118,19 +118,6 @@ const TimelineSummary = memo(function TimelineSummary({ timeline, onContinue }) 
                 })}
             </div>
 
-            {/* Continue */}
-            <motion.div variants={itemVariants} className="pt-2">
-                <Button
-                    variant="primary"
-                    size="lg"
-                    className="w-full"
-                    onClick={onContinue}
-                    id="btn-timeline-continue"
-                >
-                    See Your Protection Plan
-                    <ChevronRight size={20} />
-                </Button>
-            </motion.div>
         </motion.div>
     );
 });

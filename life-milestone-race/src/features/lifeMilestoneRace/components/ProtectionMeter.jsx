@@ -22,50 +22,52 @@ const ProtectionMeter = memo(function ProtectionMeter({ score, maxScore = 100 })
     }, [percentage]);
 
     return (
-        <div className="w-full space-y-3">
-            {/* Header — label left, pill + score right */}
-            <div className="flex items-center justify-between">
-                <span className="text-[0.9375rem] font-bold text-blue-950 tracking-wide">
-                    Protection Level
+        <div className="w-full space-y-2">
+            {/* Header */}
+            <div className="flex items-end justify-between px-1">
+                <span className="text-[0.9rem] font-bold text-blue-950/90 tracking-wide uppercase mb-0.5">
+                    Protection Score
                 </span>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                     {/* Glowing pill */}
                     <span
-                        className="text-[0.75rem] font-black uppercase tracking-wider px-3 py-1 rounded-full"
+                        className="text-[0.7rem] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full transition-colors duration-300"
                         style={{
                             backgroundColor: pillColor,
                             color: '#fff',
-                            boxShadow: `0 0 14px ${pillColor}80, 0 0 4px ${pillColor}80`,
+                            boxShadow: `0 0 10px ${pillColor}60`,
                         }}
                     >
                         {label}
                     </span>
                     {/* Bold score */}
-                    <span className="text-[1.5rem] font-black text-blue-950 leading-none">
+                    <span className="text-[1.75rem] font-black text-blue-950 leading-none tabular-nums tracking-tight">
                         {Math.round(score)}
                     </span>
                 </div>
             </div>
 
-            {/* Thick progress bar — Blue base, Orange fill */}
+            {/* Thick progress bar */}
             <div
                 className="relative w-full rounded-full overflow-hidden"
                 style={{
-                    height: '14px',
-                    backgroundColor: 'rgba(0, 102, 178, 0.2)',
-                    border: '1px solid rgba(0, 102, 178, 0.3)',
+                    height: '16px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                    border: '1px solid rgba(255, 255, 255, 0.6)',
+                    boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.05)'
                 }}
             >
-                <motion.div
-                    className="absolute left-0 top-0 h-full rounded-full"
+                <div
+                    className="h-full rounded-full transition-all duration-700 ease-out relative"
                     style={{
+                        width: `${Math.max(5, percentage)}%`,
                         background: 'linear-gradient(90deg, #FF8C00 0%, #FF6600 100%)',
-                        boxShadow: '0 0 16px rgba(255, 140, 0, 0.4)',
+                        boxShadow: '0 0 12px rgba(255, 140, 0, 0.4)',
                     }}
-                    initial={{ width: 0 }}
-                    animate={{ width: `${percentage}%` }}
-                    transition={{ duration: 0.7, ease: 'easeOut' }}
-                />
+                >
+                    {/* Shine effect */}
+                    <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-white/30 to-transparent" />
+                </div>
             </div>
         </div>
     );

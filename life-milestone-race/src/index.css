@@ -42,7 +42,7 @@
   /* Dark BG:       #0B1120 → #131B2E gradient */
 
   .race-container {
-    @apply relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden;
+    @apply relative w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden;
     background: radial-gradient(circle at center, #BAE6FD 0%, #0EA5E9 100%);
   }
 

@@ -14,6 +14,7 @@ import TimelineSummary from './components/TimelineSummary';
 import ConversionScreen from './components/ConversionScreen';
 import LeadForm from './components/LeadForm';
 import ThankYou from './components/ThankYou';
+import ResultScreen from './components/ResultScreen';
 
 const EVENT_TIMER_SECONDS = 10;
 
@@ -87,16 +88,13 @@ const StageHeader = memo(function StageHeader({ stageData, questionNumber }) {
     if (!stageData) return null;
 
     return (
-        <div className="w-full text-center space-y-1">
-            <div className="text-[2rem] leading-none">{stageData.emoji}</div>
-            <h2 className="text-[1rem] font-black text-blue-950 uppercase tracking-wider">
+        <div className="w-full text-center space-y-0.5">
+            <div className="text-[2.5rem] leading-none mb-1 filter drop-shadow-sm">{stageData.emoji}</div>
+            <h2 className="text-[1.25rem] font-black text-blue-950 uppercase tracking-widest leading-none">
                 {stageData.label}
             </h2>
-            <p className="text-[0.8125rem] font-semibold text-blue-900/60">
+            <p className="text-[0.75rem] font-bold text-blue-900/60 uppercase tracking-wide">
                 Financial Risk Ahead
-            </p>
-            <p className="text-[0.875rem] font-black text-blue-950/80">
-                Question {questionNumber}/{EVENTS_PER_STAGE}
             </p>
         </div>
     );
@@ -107,21 +105,22 @@ const StageHeader = memo(function StageHeader({ stageData, questionNumber }) {
  */
 const RaceProgress = memo(function RaceProgress({ current, total, progress }) {
     return (
-        <div className="w-full space-y-2">
-            <div className="flex justify-between items-center">
-                <span className="text-[0.875rem] font-bold text-blue-950">
+        <div className="w-full space-y-1">
+            <div className="flex justify-between items-end px-1">
+                <span className="text-[0.8rem] font-bold text-blue-950/80 uppercase tracking-wide">
                     Question {current}/{total}
                 </span>
-                <span className="text-[0.875rem] font-bold text-blue-950">
+                <span className="text-[0.8rem] font-bold text-blue-950/80">
                     {progress}%
                 </span>
             </div>
             <div
                 className="w-full rounded-full overflow-hidden"
                 style={{
-                    height: '14px',
-                    backgroundColor: 'rgba(0, 102, 178, 0.15)',
-                    border: '1px solid rgba(0, 102, 178, 0.2)',
+                    height: '10px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                    border: '1px solid rgba(255, 255, 255, 0.6)',
+                    boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)'
                 }}
             >
                 <div
@@ -129,7 +128,7 @@ const RaceProgress = memo(function RaceProgress({ current, total, progress }) {
                     style={{
                         width: `${progress}%`,
                         background: 'linear-gradient(90deg, #FF8C00 0%, #FF6600 100%)',
-                        boxShadow: '0 0 12px rgba(255, 140, 0, 0.4)',
+                        boxShadow: '0 0 8px rgba(255, 140, 0, 0.5)',
                     }}
                 />
             </div>
@@ -194,32 +193,36 @@ const LifeMilestoneRacePage = memo(function LifeMilestoneRacePage() {
 
             case GAME_PHASES.RACING:
                 return (
-                    <div key="racing" className="w-full flex flex-col gap-5 animate-fade-in" style={{ padding: '0.25rem 0' }}>
-                        {/* Stage header with emoji + stage name + question counter */}
-                        <StageHeader
-                            stageData={selectedStageData}
-                            questionNumber={currentEventIndex + 1}
-                        />
+                    <div key="racing" className="w-full h-full flex flex-col justify-center gap-3 animate-fade-in px-4 max-w-md mx-auto" style={{ padding: '1rem 0' }}>
+                        {/* Upper Section: Header + Progress + Meter */}
+                        <div className="flex flex-col gap-2 w-full">
+                            <StageHeader
+                                stageData={selectedStageData}
+                                questionNumber={currentEventIndex + 1}
+                            />
 
-                        {/* Compact progress bar */}
-                        <RaceProgress
-                            current={currentEventIndex + 1}
-                            total={eventQueue.length}
-                            progress={progressPercent}
-                        />
+                            <RaceProgress
+                                current={currentEventIndex + 1}
+                                total={eventQueue.length}
+                                progress={progressPercent}
+                            />
 
-                        {/* Protection Level meter */}
-                        <ProtectionMeter score={score} />
+                            <ProtectionMeter score={score} />
+                        </div>
 
-                        {/* Hero event card */}
-                        <EventCard event={currentEvent} />
+                        {/* Middle Section: Event Card (Focal Point) */}
+                        <div className="flex-1 flex items-center justify-center w-full py-2">
+                            <EventCard event={currentEvent} />
+                        </div>
 
-                        {/* Decision buttons + timer */}
-                        <DecisionButtons
-                            onDecision={makeDecision}
-                            timeLeft={timeLeft}
-                            timerProgress={timerProgress}
-                        />
+                        {/* Lower Section: Buttons + Timer */}
+                        <div className="w-full mt-auto">
+                            <DecisionButtons
+                                onDecision={makeDecision}
+                                timeLeft={timeLeft}
+                                timerProgress={timerProgress}
+                            />
+                        </div>
                     </div>
                 );
 
@@ -233,84 +236,23 @@ const LifeMilestoneRacePage = memo(function LifeMilestoneRacePage() {
                 );
 
             case GAME_PHASES.FINISH:
-                return (
-                    <motion.div
-                        key="finish"
-                        className="w-full flex flex-col items-center gap-6"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <div className="text-center space-y-3">
-                            <div className="text-[3.5rem]">🏁</div>
-                            <h2 className="text-[1.75rem] font-black text-blue-950">
-                                Finish Line!
-                            </h2>
-                            <p className="text-blue-900/70 text-[1rem]">
-                                You&apos;ve completed the Life Milestone Race
-                            </p>
-                        </div>
-                        <motion.button
-                            onClick={showScoreReveal}
-                            whileTap={{ scale: 0.97 }}
-                            className="font-black text-white text-[1.125rem] uppercase tracking-wider px-8 py-4 rounded-xl"
-                            style={{
-                                background: 'linear-gradient(135deg, #FF8C00 0%, #FF6600 100%)',
-                                boxShadow: '0 4px 0 #CC5500, 0 0 20px rgba(255, 140, 0, 0.35)',
-                            }}
-                            id="btn-reveal-score"
-                        >
-                            Reveal My Score 🏆
-                        </motion.button>
-                    </motion.div>
-                );
-
             case GAME_PHASES.SCORE_REVEAL:
-                return (
-                    <SpeedometerScore
-                        key="score"
-                        score={finalScore}
-                        category={protectionCategory}
-                        onViewTimeline={showTimeline}
-                    />
-                );
-
             case GAME_PHASES.TIMELINE:
-                return (
-                    <TimelineSummary
-                        key="timeline"
-                        timeline={timeline}
-                        onContinue={showConversion}
-                    />
-                );
-
             case GAME_PHASES.CONVERSION:
-                return (
-                    <ConversionScreen
-                        key="conversion"
-                        score={finalScore}
-                        category={protectionCategory}
-                        onBookSlot={showLeadForm}
-                    />
-                );
-
             case GAME_PHASES.LEAD_FORM:
-                return (
-                    <LeadForm
-                        key="lead-form"
-                        gameId={gameId}
-                        score={finalScore}
-                        category={protectionCategory}
-                        riskGaps={riskGaps}
-                        onSuccess={handleLeadSuccess}
-                    />
-                );
-
             case GAME_PHASES.THANK_YOU:
+                // Consolidated Result Screen
                 return (
-                    <ThankYou
-                        key="thank-you"
-                        name={userName}
+                    <ResultScreen
+                        key="result-screen"
+                        score={score}
+                        finalScore={finalScore}
+                        userName={userName}
+                        timeline={timeline}
+                        category={protectionCategory}
+                        onRestart={restartGame}
+                        gameId={gameId}
+                        riskGaps={riskGaps}
                     />
                 );
 
