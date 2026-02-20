@@ -67,5 +67,14 @@
     "popular": true,
     "gameId": "GAME_006",
     "assets": []
+  },
+  "retirement-sudoku": {
+    "remoteEntry": "assets/games/retirement-sudoku/index.js",
+    "exposedModule": "./GameEntry",
+    "type": "react",
+    "displayName": "Retirement Sudoku",
+    "popular": true,
+    "gameId": "GAME_007",
+    "assets": []
   }
 }

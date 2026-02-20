@@ -39,6 +39,11 @@ const games = [
     name: 'financial-match-arena',
     source: path.join(ROOT_DIR, 'financial-match-arena', 'dist'),
     destination: path.join(SHELL_GAMES_DIR, 'financial-match-arena')
+  },
+  {
+    name: 'retirement-sudoku',
+    source: path.join(ROOT_DIR, 'retirement-sudoku', 'dist'),
+    destination: path.join(SHELL_GAMES_DIR, 'retirement-sudoku')
   }
 ];
 
