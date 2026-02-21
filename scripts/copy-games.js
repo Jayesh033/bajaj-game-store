@@ -56,6 +56,11 @@ const games = [
     source: path.join(ROOT_DIR, "financial-tetris", "dist"),
     destination: path.join(SHELL_GAMES_DIR, "financial-tetris"),
   },
+  {
+    name: "life-shield-bomber",
+    source: path.join(ROOT_DIR, "life-shield-bomber", "dist"),
+    destination: path.join(SHELL_GAMES_DIR, "life-shield-bomber"),
+  },
 ];
 
 // Helper to robustly delete directories (fixes Windows ENOTEMPTY/EPERM issues)
@@ -214,6 +219,15 @@ const manifest = {
     displayName: "Financial Tetris",
     popular: true,
     gameId: "GAME_008",
+    assets: [],
+  },
+  "life-shield-bomber": {
+    remoteEntry: "assets/games/life-shield-bomber/index.js",
+    exposedModule: "./GameEntry",
+    type: "react",
+    displayName: "Life Shield Bomber",
+    popular: true,
+    gameId: "GAME_009",
     assets: [],
   },
 };
