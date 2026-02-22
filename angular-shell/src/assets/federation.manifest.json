@@ -93,5 +93,14 @@
     "popular": true,
     "gameId": "GAME_009",
     "assets": []
+  },
+  "tile-flipping-game": {
+    "remoteEntry": "assets/games/tile-flipping-game/index.js",
+    "exposedModule": "./GameEntry",
+    "type": "react",
+    "displayName": "Tile Flipping Game",
+    "popular": true,
+    "gameId": "GAME_010",
+    "assets": []
   }
 }

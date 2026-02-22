@@ -505,6 +505,7 @@ export class LobbyComponent implements OnInit {
     'quiz-game': '🧠',
     'retirement-readiness-journey': '🚀',
     'life-shield-bomber': '🛡️',
+    'tile-flipping-game': '🧩',
   };
 
 
