@@ -61,6 +61,11 @@ const games = [
     source: path.join(ROOT_DIR, "life-shield-bomber", "dist"),
     destination: path.join(SHELL_GAMES_DIR, "life-shield-bomber"),
   },
+  {
+    name: "tile-flipping-game",
+    source: path.join(ROOT_DIR, "Tile-Flipping-game", "dist"),
+    destination: path.join(SHELL_GAMES_DIR, "tile-flipping-game"),
+  },
 ];
 
 // Helper to robustly delete directories (fixes Windows ENOTEMPTY/EPERM issues)
@@ -74,30 +79,26 @@ const robustRemove = (dirPath) => {
       fs.removeSync(dirPath);
       return; // Success
     } catch (err) {
-      // If it's the last retry, try Strategy 2
       if (i === maxRetries - 1) break;
 
       console.warn(
         `    ⚠️ Locking issue with ${path.basename(dirPath)}. Retrying (${i + 1}/${maxRetries})...`,
       );
       const start = Date.now();
-      while (Date.now() - start < 500) {} // Wait 500ms
+      while (Date.now() - start < 500) { } // Wait 500ms
     }
   }
 
-  // Strategy 2: Rename and Abandon (if delete failed)
+  // Strategy 2: Rename and Abandon
   try {
     const trashPath = `${dirPath}_trash_${Date.now()}`;
     fs.renameSync(dirPath, trashPath);
     console.log(
       `    ⚠️ Moved locked folder to ${path.basename(trashPath)} to proceed.`,
     );
-
-    // Try to delete the trash asynchronously (fire and forget)
-    fs.remove(trashPath).catch(() => {});
+    fs.remove(trashPath).catch(() => { });
     return;
   } catch (renameErr) {
-    // If rename also fails, we can't do much.
     console.error(
       `    ❌ Could not remove or move ${dirPath}. Please close any apps using it.`,
     );
@@ -107,11 +108,8 @@ const robustRemove = (dirPath) => {
 
 games.forEach((game) => {
   console.log(`  ✓ Copying ${game.name}...`);
-
-  // Remove existing if present using robust delete
   robustRemove(game.destination);
 
-  // Copy game build
   if (fs.existsSync(game.source)) {
     try {
       fs.copySync(game.source, game.destination);
@@ -126,14 +124,6 @@ games.forEach((game) => {
 
 console.log("\n✅ All games copied to Shell assets!\n");
 
-// Update development manifest to point to local assets
-const manifestPath = path.join(
-  ROOT_DIR,
-  "angular-shell",
-  "src",
-  "assets",
-  "federation.manifest.json",
-);
 const manifest = {
   "scramble-words": {
     remoteEntry: "assets/games/scramble-words/index.js",
@@ -230,7 +220,23 @@ const manifest = {
     gameId: "GAME_009",
     assets: [],
   },
+  "tile-flipping-game": {
+    remoteEntry: "assets/games/tile-flipping-game/index.js",
+    exposedModule: "./GameEntry",
+    type: "react",
+    displayName: "Tile Flipping Game",
+    popular: true,
+    gameId: "GAME_010",
+    assets: [],
+  },
 };
 
-fs.writeJsonSync(manifestPath, manifest, { spaces: 2 });
-console.log("✅ Updated federation manifest with local paths!\n");
+const manifests = [
+  path.join(ROOT_DIR, "angular-shell", "src", "assets", "federation.manifest.json"),
+  path.join(ROOT_DIR, "angular-shell", "src", "assets", "federation.manifest.prod.json"),
+];
+
+manifests.forEach((manifestPath) => {
+  fs.writeJsonSync(manifestPath, manifest, { spaces: 2 });
+});
+console.log("✅ Updated both federation manifests with local paths!\n");
