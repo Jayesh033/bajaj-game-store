@@ -110,17 +110,20 @@ export class GamificationStoreService {
     const { salesPerson, gameDetails } = state;
     if (!gameDetails.url || !salesPerson.id || !gameDetails.id) return null;
 
+    // Strip any query string that may already be baked into the stored URL
+    // (e.g. from a previously constructed URL being saved back into state).
+    // Also strip a trailing "index.html" so we always start from the bare
+    // directory path and re-append it consistently below.
+    const rawUrl = gameDetails.url.split('?')[0].replace(/\/index\.html$/, '');
+
     const isLocal =
-      gameDetails.url.includes('localhost') ||
-      gameDetails.url.includes('/assets/games');
-    const baseUrl = gameDetails.url.replace(/\/$/, '');
+      rawUrl.includes('localhost') ||
+      rawUrl.includes('/assets/games');
+    const baseUrl = rawUrl.replace(/\/$/, '');
 
     if (isLocal) {
       // Local static files need index.html + query params to avoid 404 recursion
-      const path = baseUrl.endsWith('index.html')
-        ? baseUrl
-        : `${baseUrl}/index.html`;
-      return `${path}?salesPersonId=${encodeURIComponent(salesPerson.id)}&gameId=${encodeURIComponent(gameDetails.id)}`;
+      return `${baseUrl}/index.html?salesPersonId=${encodeURIComponent(salesPerson.id)}&gameId=${encodeURIComponent(gameDetails.id)}`;
     } else {
       // Remote apps handle path parameters as requested
       return `${baseUrl}/${encodeURIComponent(salesPerson.id)}/${encodeURIComponent(gameDetails.id)}`;
