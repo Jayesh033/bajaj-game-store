@@ -84,5 +84,14 @@
     "popular": true,
     "gameId": "GAME_008",
     "assets": []
+  },
+  "life-shield-bomber": {
+    "remoteEntry": "assets/games/life-shield-bomber/index.js",
+    "exposedModule": "./GameEntry",
+    "type": "react",
+    "displayName": "Life Shield Bomber",
+    "popular": true,
+    "gameId": "GAME_009",
+    "assets": []
   }
 }
