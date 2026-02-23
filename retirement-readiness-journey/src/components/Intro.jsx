@@ -67,40 +67,25 @@ const Intro = ({ onStart, setUserInfo, userInfo }) => {
     };
 
     return (
-        <div className="flex-1 flex flex-col items-center justify-center text-center space-y-8 animate-in fade-in duration-700">
-            <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.6, type: "spring" }}
-                className="w-[12rem] h-[12rem] bg-primary-50 rounded-full flex items-center justify-center p-8"
-            >
-                <div className="w-full h-full bg-primary-500 rounded-full flex items-center justify-center text-[4rem] shadow-xl shadow-primary-500/30">
-                    🎯
-                </div>
-            </motion.div>
-
-            <div className="space-y-4 max-w-[32rem]">
-                <h1 className="text-[2.5rem] font-extrabold text-slate-900 leading-tight">
-                    Discover Your <br />
-                    <span className="text-primary-500 underline decoration-accent-orange decoration-4 underline-offset-8">
-                        Retirement Readiness
-                    </span>
-                </h1>
-                <p className="text-[1.125rem] text-slate-500">
-                    Embark on a fun, interactive journey to see how prepared you are for your future self. It only takes 2 minutes!
-                </p>
-            </div>
-
-            <div className="w-full max-w-[20rem] pt-8">
+        <div
+            className="flex-1 flex flex-col items-center justify-end text-center animate-in fade-in duration-700 w-full"
+            style={{
+                backgroundImage: `url('./assets/Intro.png')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                minHeight: '100vh',
+            }}
+        >
+            <div className="w-full flex justify-center pb-12">
                 <Button
                     onClick={handleStartClick}
-                    className="w-full h-[4rem] text-[1.125rem] bg-primary-500 hover:bg-primary-600 shadow-xl shadow-primary-500/40"
+                    className="px-12 h-[4rem] text-[1.25rem] font-black text-white rounded-none tracking-widest hover:opacity-100 transition-all border-b-[6px] border-[#00407A] active:border-b-0 active:translate-y-[6px] relative overflow-hidden group shadow-[0_10px_30px_rgba(0,102,178,0.3)]"
+                    style={{ background: '#0066B2' }}
                 >
-                    BEGIN ASSESSMENT
+                    <span className="relative z-10 italic">START NOW</span>
+                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Button>
-                <p className="mt-4 text-[0.875rem] text-slate-400">
-                    No credit card required • Instant results
-                </p>
             </div>
 
             {/* Initial Lead Popup */}
@@ -246,9 +231,7 @@ const Intro = ({ onStart, setUserInfo, userInfo }) => {
                             </button>
                             <h3 className="text-[#0066B2] font-black text-lg uppercase mb-4 tracking-tight">Terms & Conditions</h3>
                             <div className="text-sm text-slate-600 space-y-3 font-medium leading-relaxed max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar text-left">
-                                <p>I/we hereby represent that all the details/information provided today or in the past by me/us to Bajaj Allianz Life Insurance Co. Ltd (the Company) are true, correct and complete.</p>
-                                <p>I/we hereby authorize the Company, its group companies, its agents, its employees and representatives to share information, about my/our relationship with the Company and its group companies, including but not limited to, the details of my/our policy/ies or relationship, with the Company and/or its group companies, as the case may be, for the purpose of cross-selling or for any other purpose.</p>
-                                <p>I/we hereby authorize the Company and its group companies to contact me/us by way of SMS/Phone/Email/WhatsApp/Post/Social Media as regards my/our policy information, service related info or regarding any other services or products (new or existing) offered by the Company or its group companies and I/we confirm that this shall prevail over any "Do Not Disturb" (DND) or such other registry.</p>
+                                <p>BAJAJ LIFE INSURANCE</p>
                             </div>
                             <button
                                 onClick={() => { setShowTerms(false); setTermsAccepted(true); }}

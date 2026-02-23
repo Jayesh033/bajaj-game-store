@@ -6,4 +6,8 @@ packages:
   - "quiz-game"
   - "life-milestone-race"
   - "retirement-readiness-journey"
-
+  - "financial-match-arena"
+  - "retirement-sudoku"
+  - "financial-tetris"
+  - "Tile-Flipping-game"
+  - "life-shield-bomber"

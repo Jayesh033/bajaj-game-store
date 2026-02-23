@@ -1,66 +1,86 @@
-import React from 'react';
-import { cn } from '../utils/cn';
+import React from "react";
+import { cn } from "../utils/cn";
 
-const StepEssentials = ({ step, selections, onSelect }) => {
+const StepEssentials = ({ step, selections, onSelect, stepIndex = 3 }) => {
     const currentSelection = selections[step.id] || [];
 
-    const toggleOption = (optionId) => {
-        const newSelection = currentSelection.includes(optionId)
-            ? currentSelection.filter(id => id !== optionId)
-            : [...currentSelection, optionId];
-        onSelect(step.id, newSelection.length > 0 ? newSelection : null);
-    };
-
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="space-y-2">
-                <h2 className="text-[1.75rem] font-bold text-slate-900">{step.title}</h2>
-                <p className="text-slate-500 text-[1rem]">{step.description}</p>
-            </div>
+        <div className="flex flex-col items-center justify-start w-full">
 
-            <div className="grid grid-cols-1 gap-3">
-                {step.options.map((option) => {
-                    const isSelected = currentSelection.includes(option.id);
-                    return (
-                        <button
-                            key={option.id}
-                            onClick={() => toggleOption(option.id)}
-                            className={cn(
-                                "relative flex items-center p-5 rounded-[1rem] border-2 transition-all duration-200 text-left",
-                                isSelected
-                                    ? "border-primary-500 bg-primary-50/30 shadow-sm"
-                                    : "border-slate-100 bg-white hover:border-slate-200"
-                            )}
-                        >
-                            <div className={cn(
-                                "w-6 h-6 rounded-md border-2 mr-4 flex items-center justify-center transition-colors",
-                                isSelected ? "bg-primary-500 border-primary-500" : "border-slate-200"
-                            )}>
-                                {isSelected && (
-                                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                    </svg>
+            <div className="relative z-10 w-full max-w-md px-4 pt-4 pb-4">
+
+                <div className="flex justify-center mb-6">
+                    <div className="px-6 py-2 bg-blue-500 text-white rounded-full text-sm font-semibold">
+                        Step {stepIndex} of 5
+                    </div>
+                </div>
+
+                <h2 className="text-2xl font-extrabold text-slate-900 text-center mb-1.5">
+                    {step.title}
+                </h2>
+
+                {/* Description */}
+                <p className="text-center text-slate-600 text-sm mb-4">
+                    {step.description}
+                </p>
+
+                {/* Progress Bar */}
+                <div className="w-full mb-5">
+                    <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                        <div
+                            className="h-full bg-blue-500 rounded-full transition-all"
+                            style={{ width: `${(stepIndex / 5) * 100}%` }}
+                        />
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                    {step.options.map((option) => {
+                        const isSelected = currentSelection.includes(option.id);
+
+                        return (
+                            <button
+                                key={option.id}
+                                onClick={() => {
+                                    const next = isSelected
+                                        ? currentSelection.filter(id => id !== option.id)
+                                        : [...currentSelection, option.id];
+                                    onSelect(step.id, next);
+                                }}
+                                className={cn(
+                                    "flex items-center p-4 rounded-[1.25rem] bg-white/90 shadow-sm backdrop-blur-xl transition-all hover:-translate-y-0.5",
+                                    isSelected && "ring-2 ring-blue-500 bg-blue-50/90"
                                 )}
-                            </div>
-                            <div className="flex-1">
-                                <h3 className={cn(
-                                    "text-[1rem] font-bold",
-                                    isSelected ? "text-primary-700" : "text-slate-900"
-                                )}>
-                                    {option.label}
-                                </h3>
-                                <p className="text-[0.75rem] text-slate-400 font-medium">
-                                    {option.sublabel}
-                                </p>
-                            </div>
-                        </button>
-                    );
-                })}
-            </div>
+                            >
+                                <div className="w-16 h-16 bg-slate-50/50 rounded-xl flex items-center justify-center p-2 flex-shrink-0 shadow-inner">
+                                    <img
+                                        src={option.image}
+                                        alt={option.label}
+                                        className="max-h-full max-w-full object-contain"
+                                    />
+                                </div>
+                                <div className="flex-1 text-left ml-4">
+                                    <h3 className="text-sm font-bold text-slate-900 leading-tight">
+                                        {option.label}
+                                    </h3>
+                                    <p className="text-[11px] text-slate-500 mt-1 leading-snug line-clamp-1">
+                                        {option.sublabel}
+                                    </p>
+                                </div>
 
-            <p className="text-[0.875rem] text-slate-400 text-center font-medium italic">
-                Select all that apply to your retirement vision
-            </p>
+                                <div className={cn(
+                                    "ml-2 w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-colors border-2",
+                                    isSelected
+                                        ? "bg-blue-500 border-blue-500 text-white shadow-sm"
+                                        : "bg-slate-50 border-slate-100 text-slate-300"
+                                )}>
+                                    {isSelected ? <span className="text-[10px] font-bold">✓</span> : <span className="text-[10px]">→</span>}
+                                </div>
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
         </div>
     );
 };
