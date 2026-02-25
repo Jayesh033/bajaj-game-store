@@ -4,5 +4,20 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [react(), tailwindcss()],
+  build: {
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        entryFileNames: '[name].js',
+        chunkFileNames: '[name].js',
+        assetFileNames: '[name].[ext]',
+        format: 'es'
+      }
+    }
+  },
+  server: {
+    port: 5011
+  }
 })
