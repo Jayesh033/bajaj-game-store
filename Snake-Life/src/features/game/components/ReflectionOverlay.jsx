@@ -10,13 +10,13 @@ const ReflectionOverlay = () => {
         if (status === GAME_STATUS.GAMEOVER) {
             // Phaser logic for Game Over Sequence
             const timers = [
-                setTimeout(() => setPhase(1), 300),   // Phase 1 (0.3s)
-                setTimeout(() => setPhase(2), 2500),  // Phase 2 (2.5s)
-                setTimeout(() => setPhase(3), 5500),  // Phase 3 (5.5s)
+                setTimeout(() => setPhase(1), 300),   // Phase 1 (starts at 0.3s)
+                setTimeout(() => setPhase(2), 3300),  // Phase 2 (starts after 3s)
+                setTimeout(() => setPhase(3), 6300),  // Phase 3 (starts after another 3s)
                 setTimeout(() => {
                     setStatus(GAME_STATUS.CTA);
                     setPhase(0);
-                }, 10500) // Auto transition at 10.5s
+                }, 9300) // Auto transition to CTA (starts after another 3s)
             ];
             return () => timers.forEach(clearTimeout);
         }

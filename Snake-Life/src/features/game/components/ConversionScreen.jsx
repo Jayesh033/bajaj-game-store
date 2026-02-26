@@ -4,6 +4,7 @@ import { Share2, PhoneCall, Calendar, Trophy, RotateCcw, Star, Medal, AlertCircl
 import ScoreCard from './ScoreCard';
 import Modal from './Modal';
 import ThankYouScreen from './ThankYouScreen';
+import bgImage from '../../../assets/Snake-Life TN.png';
 
 const ConversionScreen = ({ score, total = 20, leadData, onRestart, onBookSlot }) => {
     const today = new Date().toISOString().split("T")[0];
@@ -124,6 +125,12 @@ const ConversionScreen = ({ score, total = 20, leadData, onRestart, onBookSlot }
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
         >
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 bg-[length:100%_100%] bg-center bg-no-repeat opacity-30 blur-md scale-110 pointer-events-none"
+                style={{ backgroundImage: `url("${bgImage}")` }}
+            />
+
             {/* Header / Top Bar */}
             <div className="w-full max-w-sm flex items-center justify-center relative py-2 sh:py-0 mb-1 sh:mb-0">
                 <p className="text-gray-400 font-bold text-2xl sm:text-3xl sh:text-lg text-center">
