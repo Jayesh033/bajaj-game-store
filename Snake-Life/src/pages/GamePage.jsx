@@ -163,7 +163,7 @@ const GamePage = () => {
                             initial={{ opacity: 0, y: -20, x: '-50%' }}
                             animate={{ opacity: 1, y: 0, x: '-50%' }}
                             exit={{ opacity: 0, y: -20, x: '-50%' }}
-                            className="absolute top-4 left-1/2 z-[100] bg-white/90 backdrop-blur-md border border-primary/20 px-6 py-2 rounded-full shadow-xl pointer-events-none"
+                            className="absolute top-28 left-1/2 z-[100] bg-white/90 backdrop-blur-md border border-primary/20 px-6 py-2 rounded-full shadow-xl pointer-events-none"
                         >
                             <p className="text-primary font-bold text-sm whitespace-nowrap">{toast}</p>
                         </motion.div>
