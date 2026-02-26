@@ -6,6 +6,7 @@ import GameCanvas from '../features/game/components/GameCanvas';
 import ReflectionOverlay from '../features/game/components/ReflectionOverlay';
 import ConversionScreen from '../features/game/components/ConversionScreen';
 import IntroScreen from '../features/game/components/IntroScreen';
+import TutorialOverlay from '../features/game/components/TutorialOverlay';
 import CalculatorForm from '../features/calculator/CalculatorForm';
 import LeadCaptureForm from '../features/leadCapture/LeadCaptureForm';
 import { Shield, Clock, Trophy } from 'lucide-react';
@@ -13,13 +14,20 @@ import { submitToLMS } from '../services/api';
 
 const GamePage = () => {
     const { status, setStatus, score, highScore, toast, leadData, setLeadData, startGame, lastEatenMilestone, nextMilestone } = useGame();
-    const { snake, previousSnake, pellet, timeLeft, speed, lastMoveTime, resetEngine } = useSnakeEngine();
+    const { snake, previousSnake, pellet, timeLeft, speed, lastMoveTime, resetEngine, setIsPaused } = useSnakeEngine();
     const [recommendedCover, setRecommendedCover] = useState(0);
-
+    const [showTutorial, setShowTutorial] = useState(false);
     const handleStart = (userData) => {
         setLeadData(userData);
         resetEngine();
-        startGame();
+        startGame(); // Set status to PLAYING so board renders
+        setIsPaused(true); // But pause the engine immediately
+        setShowTutorial(true);
+    };
+
+    const handleTutorialDismiss = () => {
+        setShowTutorial(false);
+        setIsPaused(false); // Unpause the engine when tutorial is gone
     };
 
     const handleBookSlot = async (bookingInfo) => {
@@ -75,12 +83,12 @@ const GamePage = () => {
                     {(status === GAME_STATUS.PLAYING || status === GAME_STATUS.REFLECTION || status === GAME_STATUS.GAMEOVER) && (
                         <motion.div
                             key="gameplay"
-                            className="flex-1 flex flex-col p-4"
+                            className="flex-1 flex flex-col p-2"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            <div className="flex-1 w-full max-w-sm mx-auto flex items-center justify-center p-4">
+                            <div className="flex-1 w-full mx-auto flex items-center justify-center p-1">
                                 <GameCanvas
                                     snake={snake}
                                     previousSnake={previousSnake}
@@ -90,6 +98,8 @@ const GamePage = () => {
                                     speed={speed}
                                     lastMoveTime={lastMoveTime}
                                 />
+                                {/* Overlay the tutorial precisely on top of the canvas */}
+                                {showTutorial && <TutorialOverlay onDismiss={handleTutorialDismiss} />}
                             </div>
 
                             {/* Milestone Achievement Message */}
