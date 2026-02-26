@@ -11,6 +11,8 @@ import {
     INITIAL_SNAKE,
     DIRECTIONS
 } from '../constants/constants';
+import foodSound from '../../../assets/sound/music_food.mp3';
+import gameOverSound from '../../../assets/sound/music_gameover.mp3';
 
 export const useSnakeEngine = () => {
     const {
@@ -37,9 +39,19 @@ export const useSnakeEngine = () => {
     const gameLoopIdRef = useRef(null);
     const hasTriggeredGrowthMessage = useRef(false);
 
+    // Sound effects
+    const foodAudioRef = useRef(null);
+    const gameOverAudioRef = useRef(null);
+
+    useEffect(() => {
+        foodAudioRef.current = new Audio(foodSound);
+        gameOverAudioRef.current = new Audio(gameOverSound);
+    }, []);
+
     // Stats for UI
     const [timeLeft, setTimeLeft] = useState(GAME_DURATION);
     const [tick, setTick] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
 
     const generatePellet = useCallback(() => {
         let newPellet;
@@ -85,6 +97,11 @@ export const useSnakeEngine = () => {
         let hitSelf = snakeRef.current.some(s => s.x === newHead.x && s.y === newHead.y);
 
         if (hitWall || hitSelf) {
+            // Play game over sound
+            if (gameOverAudioRef.current) {
+                gameOverAudioRef.current.currentTime = 0;
+                gameOverAudioRef.current.play().catch(() => { });
+            }
             if (handleGameOverRef.current) handleGameOverRef.current();
             return;
         }
@@ -93,6 +110,11 @@ export const useSnakeEngine = () => {
 
         // Check Pellet
         if (newHead.x === pelletRef.current.x && newHead.y === pelletRef.current.y) {
+            // Play food eating sound
+            if (foodAudioRef.current) {
+                foodAudioRef.current.currentTime = 0;
+                foodAudioRef.current.play().catch(() => { });
+            }
             const currentMilestones = score + 1;
 
             // Growth: Milestones 1–5 → +2 segments, 6+ → +3 segments
@@ -141,6 +163,13 @@ export const useSnakeEngine = () => {
             return;
         }
 
+        if (isPaused) {
+            lastMoveTimeRef.current = timestamp;
+            lastSpeedUpdateTimeRef.current = timestamp;
+            gameLoopIdRef.current = requestAnimationFrame(gameLoop);
+            return;
+        }
+
         if (!lastMoveTimeRef.current) {
             lastMoveTimeRef.current = timestamp;
             lastSpeedUpdateTimeRef.current = timestamp;
@@ -171,7 +200,7 @@ export const useSnakeEngine = () => {
         }
 
         gameLoopIdRef.current = requestAnimationFrame(gameLoop);
-    }, [status, moveSnake]);
+    }, [status, moveSnake, isPaused]);
 
     useEffect(() => {
         if (status === GAME_STATUS.PLAYING) {
@@ -211,6 +240,13 @@ export const useSnakeEngine = () => {
             touchStartY = e.touches[0].clientY;
         };
 
+        const handleTouchMove = (e) => {
+            // Prevent default scrolling only when touching the game area
+            if (e.target.closest && e.target.closest('canvas')) {
+                e.preventDefault();
+            }
+        };
+
         const handleTouchEnd = (e) => {
             const touchEndX = e.changedTouches[0].clientX;
             const touchEndY = e.changedTouches[0].clientY;
@@ -233,12 +269,14 @@ export const useSnakeEngine = () => {
         };
 
         window.addEventListener('keydown', handleKeyDown);
-        window.addEventListener('touchstart', handleTouchStart);
+        window.addEventListener('touchstart', handleTouchStart, { passive: false });
+        window.addEventListener('touchmove', handleTouchMove, { passive: false });
         window.addEventListener('touchend', handleTouchEnd);
 
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('touchmove', handleTouchMove);
             window.removeEventListener('touchend', handleTouchEnd);
         };
     }, []);
@@ -250,6 +288,7 @@ export const useSnakeEngine = () => {
         timeLeft,
         speed: speedRef.current,
         lastMoveTime: lastMoveTimeRef.current,
-        resetEngine
+        resetEngine,
+        setIsPaused
     };
 };
