@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import {
@@ -21,7 +22,8 @@ export class SecurityService {
   constructor(
     private router: Router,
     private store: GamificationStoreService,
-    private federationService: FederationService
+    private federationService: FederationService,
+    @Inject(APP_BASE_HREF) private baseHref: string,
   ) { }
 
   /**
@@ -99,13 +101,15 @@ export class SecurityService {
       const salesPerson = {
         id: empId,
         name: this.payload.emp_name || 'User',
-        region: this.payload.location || this.payload.zone || 'NA'
+        region: this.payload.location || 'NA',
+        mobile: this.payload.emp_mobile || '',
+        zone: this.payload.zone || '',
       };
 
       const gameDetails = {
         id: internalGameId,
         desc: manifest.displayName,
-        url: '/' + manifest.remoteEntry.substring(0, manifest.remoteEntry.lastIndexOf('/') + 1) + 'index.html',
+        url: this.baseHref + manifest.remoteEntry.substring(0, manifest.remoteEntry.lastIndexOf('/') + 1) + 'index.html',
         thumbnail: ''
       };
 
