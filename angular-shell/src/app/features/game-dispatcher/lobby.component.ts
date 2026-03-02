@@ -589,21 +589,12 @@ export class LobbyComponent implements OnInit {
   }
 
   playGame(gameId: string) {
-    // ── Create a Guest session so the AuthGuard allows access ──
-    const manifest = this.federationService.getGameManifest(gameId);
-    if (manifest) {
-      this.store.setState(
-        { id: 'GUEST_USER', name: 'Guest', region: 'Local', mobile: '', zone: '' },
-        {
-          id: gameId,
-          desc: manifest.displayName,
-          url: this.federationService.getGameUrl(gameId) || '',
-          thumbnail: '',
-        },
-        'GUEST_SESSION',
-      );
+    // ── Open game in a new tab to avoid CSP frame-ancestors issues ──
+    const url = this.federationService.getGameUrl(gameId);
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } else {
+      console.error(`[Lobby] No URL found for game: ${gameId}`);
     }
-
-    this.router.navigate(['/play', gameId]);
   }
 }

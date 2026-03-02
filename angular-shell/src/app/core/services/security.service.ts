@@ -125,12 +125,21 @@ export class SecurityService {
   }
 
   /**
-   * Navigate to /play/:gameId and scrub the token from browser history/URL
+   * Open the game in a new browser tab to avoid CSP frame-ancestors issues.
+   * Falls back to router navigation if the URL cannot be resolved.
    */
   secureNavigateToGame(gameId: string): void {
-    this.router.navigate(['/play', gameId], {
-      replaceUrl: true, // removes token URL from browser history
-    });
+    const url = this.federationService.getGameUrl(gameId);
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+      // Navigate back to lobby and scrub token from history
+      this.router.navigate(['/'], { replaceUrl: true });
+    } else {
+      console.error(`[SecurityService] No URL found for game: ${gameId}`);
+      this.router.navigate(['/play', gameId], {
+        replaceUrl: true,
+      });
+    }
   }
 
   /**
