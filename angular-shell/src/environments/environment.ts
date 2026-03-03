@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
-  envName: 'prod',
+  envName: 'production',
 
   // ── API Endpoints ──
   apiBaseUrl: 'https://api.marketingassist.com',
-  gameBaseUrl: 'https://balicuat.bajajlifeinsurance.com/gamification',
+  gameBaseUrl: 'https://bajajlifeinsurance.com/gamification',
 
   // ── Manifest ──
-  manifestUrl: 'assets/federation.manifest.prod.json',
+  manifestUrl: 'assets/federation.manifest.production.json',
 
   // ── Games (fallback paths for manifest-less mode) ──
   games: {

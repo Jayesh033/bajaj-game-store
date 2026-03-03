@@ -1,0 +1,139 @@
+{
+    "scramble-words": {
+        "remoteEntry": "gamification/assets/games/scramble-words/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Scramble Words",
+        "popular": false,
+        "gameId": "GAME_003",
+        "assets": []
+    },
+    "life-goals": {
+        "remoteEntry": "gamification/assets/games/life-goals/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Life Goals Preparedness",
+        "popular": true,
+        "gameId": "GAME_001",
+        "assets": [
+            "gamification/assets/games/life-goals/assets/videos/business.mp4",
+            "gamification/assets/games/life-goals/assets/videos/child_edu.mp4",
+            "gamification/assets/games/life-goals/assets/videos/child_marriage.mp4",
+            "gamification/assets/games/life-goals/assets/videos/dream_car.mp4",
+            "gamification/assets/games/life-goals/assets/videos/financial_security.mp4",
+            "gamification/assets/games/life-goals/assets/videos/health.mp4",
+            "gamification/assets/games/life-goals/assets/videos/house.mp4",
+            "gamification/assets/games/life-goals/assets/videos/retirement.mp4",
+            "gamification/assets/games/life-goals/assets/videos/travel.mp4"
+        ]
+    },
+    "quiz-game": {
+        "remoteEntry": "gamification/assets/games/quiz-game/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Quiz Challenge",
+        "popular": true,
+        "gameId": "GAME_002",
+        "assets": [
+            "gamification/assets/games/quiz-game/assets/bajaj.png",
+            "gamification/assets/games/quiz-game/assets/bg.png",
+            "gamification/assets/games/quiz-game/assets/gst.png"
+        ]
+    },
+    "life-milestone-race": {
+        "remoteEntry": "gamification/assets/games/life-milestone-race/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Life Milestone Race",
+        "popular": true,
+        "gameId": "GAME_004",
+        "assets": []
+    },
+    "retirement-readiness-journey": {
+        "remoteEntry": "gamification/assets/games/retirement-readiness-journey/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Retirement Readiness Journey",
+        "popular": true,
+        "gameId": "GAME_005",
+        "assets": []
+    },
+    "secure-saga": {
+        "remoteEntry": "gamification/assets/games/secure-saga/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Secure Saga",
+        "popular": true,
+        "gameId": "GAME_006",
+        "assets": []
+    },
+    "retirement-sudoku": {
+        "remoteEntry": "gamification/assets/games/retirement-sudoku/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Retirement Sudoku",
+        "popular": true,
+        "gameId": "GAME_007",
+        "assets": []
+    },
+    "financial-tetris": {
+        "remoteEntry": "gamification/assets/games/financial-tetris/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Financial Tetris",
+        "popular": true,
+        "gameId": "GAME_008",
+        "assets": []
+    },
+    "life-shield-bomber": {
+        "remoteEntry": "gamification/assets/games/life-shield-bomber/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Life Shield Bomber",
+        "popular": true,
+        "gameId": "GAME_009",
+        "assets": []
+    },
+    "tile-flipping-game": {
+        "remoteEntry": "gamification/assets/games/tile-flipping-game/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Tile Flipping Game",
+        "popular": true,
+        "gameId": "GAME_010",
+        "assets": []
+    },
+    "Snake-Life": {
+        "remoteEntry": "gamification/assets/games/Snake-Life/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Snake Life Game"
+    },
+    "life-flight": {
+        "remoteEntry": "gamification/assets/games/life-flight/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "Life Flight",
+        "popular": true,
+        "gameId": "GAME_011",
+        "assets": []
+    },
+    "life-snakes-ladders": {
+        "remoteEntry": "gamification/assets/games/life-snakes-ladders/index.js",
+        "exposedModule": "./LifeSnakesLaddersModule",
+        "type": "react",
+        "displayName": "Life Snakes & Ladders",
+        "popular": true,
+        "gameId": "GAME_012",
+        "assets": []
+    },
+    "one-life": {
+        "remoteEntry": "gamification/assets/games/one-life/index.js",
+        "exposedModule": "./GameEntry",
+        "type": "react",
+        "displayName": "One Life",
+        "popular": true,
+        "gameId": "GAME_013",
+        "assets": []
+    }
+}

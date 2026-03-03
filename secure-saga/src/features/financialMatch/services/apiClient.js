@@ -3,7 +3,8 @@
  * Submits lead data to Bajaj Life Insurance LMS.
  */
 export const submitToLMS = async (data) => {
-    const UAT_URL = "https://bjuat.bajajlife.com/BalicLmsUtil/whatsappInhouse";
+    // __LMS_BASE_URL__ injected at build time (uat/preprod/production) via vite.config.js define
+    const UAT_URL = `${__LMS_BASE_URL__}/whatsappInhouse`;
 
     // Extract userId and gameID from URL parameters (passed by Angular shell)
     const urlParams = new URLSearchParams(window.location.search);
@@ -59,26 +60,16 @@ export const submitToLMS = async (data) => {
 };
 
 export const updateLeadNew = async (leadNo, data) => {
-    const UAT_URL = "https://bjuat.bajajlife.com/BalicLmsUtil/updateLeadNew";
-
-    let formattedDate = "";
-    if (data.date) {
-        const [year, month, day] = data.date.split('-');
-        if (day && month && year) {
-            formattedDate = `${day}/${month}/${year}`;
-        } else {
-            formattedDate = data.date;
-        }
-    }
+    const UAT_URL = `${__LMS_BASE_URL__}/updateLeadNew`;
 
     const payload = {
         leadNo: leadNo,
         tpa_user_id: "",
         miscObj1: {
             stringval1: "",
-            stringval2: data.firstName || data.name || "",
+            stringval2: data.name || data.firstName || "",
             stringval3: data.lastName || "",
-            stringval4: formattedDate, // Appointment Date (DD/MM/YYYY)
+            stringval4: data.date || "", // Appointment Date (YYYY-MM-DD)
             stringval5: data.time || "", // Appointment Time
             stringval6: data.remarks || "Slot Booking via Game",
             stringval7: "GAMIFICATION",

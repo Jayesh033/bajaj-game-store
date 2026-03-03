@@ -1,16 +1,26 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+
+// LMS API base URLs per build mode
+const LMS_URLS = {
+  production: 'https://sales.bajajlife.com/BalicLmsUtil',
+  preprod: 'https://bajajuat2.bajajlife.com/BalicLmsUtil',
+  uat: 'https://bjuat.bajajlife.com/BalicLmsUtil',
+}
+
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: './', // Relative paths for flexible deployment
   plugins: [
     react()
   ],
+  define: {
+    __LMS_BASE_URL__: JSON.stringify(LMS_URLS[mode] || LMS_URLS.uat),
+  },
   build: {
     outDir: 'dist',
     rollupOptions: {
       output: {
-        // Expose the App component as a library
         name: 'ScrambleWordsGame',
         exports: 'named',
         format: 'es'
@@ -20,4 +30,4 @@ export default defineConfig({
   server: {
     port: 5001 // Development port
   }
-})
+}))

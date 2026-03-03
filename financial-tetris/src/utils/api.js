@@ -1,6 +1,7 @@
 // Utility for submitting lead and booking data to the Bajaj LMS (WhatsApp Inhouse API)
 export const submitToLMS = async (data) => {
-    const UAT_URL = "https://bjuat.bajajlife.com/BalicLmsUtil/whatsappInhouse";
+    // __LMS_BASE_URL__ injected at build time (uat/preprod/production) via vite.config.js define
+    const UAT_URL = `${__LMS_BASE_URL__}/whatsappInhouse`;
 
     // Extract userId and gameID from URL parameters (passed by Angular shell)
     const urlParams = new URLSearchParams(window.location.search);

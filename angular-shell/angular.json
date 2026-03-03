@@ -85,6 +85,28 @@
                 }
               ],
               "outputHashing": "all"
+            },
+            "preprod": {
+              "baseHref": "/gamification/",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.preprod.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kB",
+                  "maximumError": "16kB"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"
@@ -97,6 +119,12 @@
             },
             "development": {
               "buildTarget": "angular-shell:build:development"
+            },
+            "uat": {
+              "buildTarget": "angular-shell:build:uat"
+            },
+            "preprod": {
+              "buildTarget": "angular-shell:build:preprod"
             }
           },
           "defaultConfiguration": "development"
