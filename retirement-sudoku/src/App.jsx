@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import './index.css';
 
 const AppRouter = lazy(() => import('./routes/AppRouter.jsx'));
@@ -17,11 +17,11 @@ function LoadingFallback() {
 
 function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Suspense fallback={<LoadingFallback />}>
                 <AppRouter />
             </Suspense>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 

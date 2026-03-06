@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, Component } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GameProvider } from './features/flight/context/GameContext.jsx';
 
 // ── Lazy-loaded pages ─────────────────────────────────────────
@@ -71,7 +71,7 @@ export default function App() {
                 <div className="fixed inset-0 w-full h-full bg-[#020a11] flex justify-center items-center overflow-hidden">
                     {/* Mobile-centric constrained view */}
                     <div className="relative w-full max-w-[430px] h-full lg:max-h-[850px] bg-white shadow-[0_0_60px_rgba(0,0,0,0.4)] overflow-hidden lg:rounded-[2rem]">
-                        <BrowserRouter>
+                        <HashRouter>
                             <Suspense fallback={<Loading />}>
                                 <Routes>
                                     <Route path="/" element={<LandingPage />} />
@@ -82,7 +82,7 @@ export default function App() {
                                     <Route path="*" element={<Navigate to="/" replace />} />
                                 </Routes>
                             </Suspense>
-                        </BrowserRouter>
+                        </HashRouter>
                     </div>
                 </div>
             </GameProvider>
