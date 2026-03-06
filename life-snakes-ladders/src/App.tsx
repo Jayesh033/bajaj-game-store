@@ -36,7 +36,7 @@ const App: React.FC<AppProps> = ({
     onLeadSubmitted
 }) => {
     const [gameState, setGameState] = useState<GameState>({
-        playerPosition: 1,
+        playerPosition: 0,
         isGameOver: false,
         hasShield: false,
         lastDiceValue: 0,
@@ -49,7 +49,8 @@ const App: React.FC<AppProps> = ({
         playerName: undefined,
         playerMobile: undefined,
         frozenSnakes: [],
-        stats: { snakesLanded: 0, snakesAvoided: 0, laddersClimbed: 0 }
+        stats: { snakesLanded: [], snakesAvoided: [], laddersClimbed: [] },
+        shieldBoughtOnCurrentTurn: false
     });
 
     const movementTimeoutRef = useRef<number | null>(null);
@@ -111,27 +112,48 @@ const App: React.FC<AppProps> = ({
         const isFrozenSnake = cell.type === 'snake' && gameState.frozenSnakes.includes(cell.id);
 
         if (cell.type !== 'normal' && !isFrozenSnake) {
-            // Show event overlay
-            setTimeout(() => {
+            if (cell.type === 'snake') {
+                audioService.playSnakeBite();
+                if (onSnakeTriggered) onSnakeTriggered(cell.label!);
+
+                // Start sliding to tail immediately
                 setGameState(prev => ({
                     ...prev,
-                    isMoving: false,
-                    activeEvent: cell,
-                    currentScreen: 'event'
+                    playerPosition: cell.target!,
+                    isMoving: true,
+                    stats: { ...prev.stats, snakesLanded: [...prev.stats.snakesLanded, cell.label || `Snake at ${actualEndPos}`] }
                 }));
 
-                if (cell.type === 'snake') {
-                    if (gameState.hasShield) {
-                        audioService.playShieldSave();
-                        if (onShieldActivated) onShieldActivated(cell.label!);
-                    } else {
-                        audioService.playSnakeBite();
-                        if (onSnakeTriggered) onSnakeTriggered(cell.label!);
-                    }
-                } else if (cell.type === 'ladder') {
-                    audioService.playLadderClimb();
-                }
-            }, 400);
+                // Wait for slide to finish, then show event overlay
+                setTimeout(() => {
+                    setGameState(prev => ({
+                        ...prev,
+                        isMoving: false,
+                        activeEvent: cell,
+                        currentScreen: 'event'
+                    }));
+                }, 700);
+            } else if (cell.type === 'ladder') {
+                audioService.playLadderClimb();
+
+                // Start sliding up ladder immediately
+                setGameState(prev => ({
+                    ...prev,
+                    playerPosition: cell.target!,
+                    isMoving: true,
+                    stats: { ...prev.stats, laddersClimbed: [...prev.stats.laddersClimbed, cell.label || `Ladder at ${actualEndPos}`] }
+                }));
+
+                // Wait for slide to finish, then show event overlay
+                setTimeout(() => {
+                    setGameState(prev => ({
+                        ...prev,
+                        isMoving: false,
+                        activeEvent: cell,
+                        currentScreen: 'event'
+                    }));
+                }, 700);
+            }
         } else {
             setGameState(prev => {
                 const isOver = actualEndPos === BOARD_SIZE;
@@ -147,14 +169,26 @@ const App: React.FC<AppProps> = ({
                         playerPosition: actualEndPos
                     };
                 }
+
                 return {
                     ...prev,
                     isMoving: false,
                     playerPosition: actualEndPos,
-                    message: isFrozenSnake ? `Frozen Snake! Safe at square ${actualEndPos}` : `Reached square ${actualEndPos}`,
-                    stats: isFrozenSnake ? { ...prev.stats, snakesAvoided: prev.stats.snakesAvoided + 1 } : prev.stats
+                    message: isFrozenSnake ? "Don't worry, you are protected because you have shield" : `Reached square ${actualEndPos}`,
+                    stats: isFrozenSnake ? { ...prev.stats, snakesAvoided: [...prev.stats.snakesAvoided, cell.label || `Snake at ${actualEndPos}`] } : prev.stats
                 };
             });
+
+            if (isFrozenSnake) {
+                // Trigger pop-up reassurance after the movement finishes
+                setTimeout(() => {
+                    setGameState(p => ({
+                        ...p,
+                        activeEvent: { ...cell, isAlreadyFrozen: true },
+                        currentScreen: 'event'
+                    }));
+                }, 400);
+            }
         }
     };
 
@@ -165,20 +199,11 @@ const App: React.FC<AppProps> = ({
         setGameState(prev => {
             let nextPos = prev.playerPosition;
             let currentFrozenSnakes = [...prev.frozenSnakes];
-            let newStats = { ...prev.stats };
 
-            if (event.type === 'ladder') {
-                nextPos = event.target!;
-                newStats.laddersClimbed += 1;
-            } else if (event.type === 'snake') {
-                if (!prev.hasShield) {
-                    nextPos = event.target!;
-                    newStats.snakesLanded += 1;
-                } else {
-                    newStats.snakesAvoided += 1;
-                    if (!currentFrozenSnakes.includes(event.id)) {
-                        currentFrozenSnakes.push(event.id);
-                    }
+            if (event.type === 'snake') {
+                // If they bought the shield just now, add this snake to frozen
+                if (prev.shieldBoughtOnCurrentTurn && !currentFrozenSnakes.includes(event.id)) {
+                    currentFrozenSnakes.push(event.id);
                 }
             }
 
@@ -193,17 +218,28 @@ const App: React.FC<AppProps> = ({
                 isGameOver: isOver,
                 hadShieldAtEnd: isOver ? prev.hasShield : false,
                 frozenSnakes: currentFrozenSnakes,
-                stats: newStats
+                shieldBoughtOnCurrentTurn: false
             };
         });
     };
 
     const handleAddShield = () => {
-        setGameState(prev => ({
-            ...prev,
-            hasShield: true,
-            message: 'Term Shield added! You are now protected.'
-        }));
+        setGameState(prev => {
+            const event = prev.activeEvent;
+            let currentFrozenSnakes = [...prev.frozenSnakes];
+            if (event && event.type === 'snake' && !currentFrozenSnakes.includes(event.id)) {
+                currentFrozenSnakes.push(event.id);
+            }
+            return {
+                ...prev,
+                hasShield: true,
+                activeEvent: undefined,
+                currentScreen: 'game',
+                frozenSnakes: currentFrozenSnakes,
+                message: 'Term Shield added! Snake frozen.',
+                shieldBoughtOnCurrentTurn: false // Reset here since we're closing
+            };
+        });
     };
 
     const handleLeadSubmit = (data: any) => {
@@ -229,7 +265,7 @@ const App: React.FC<AppProps> = ({
 
     const resetGame = () => {
         setGameState(prev => ({
-            playerPosition: 1,
+            playerPosition: 0,
             isGameOver: false,
             hasShield: false,
             lastDiceValue: 0,
@@ -243,13 +279,14 @@ const App: React.FC<AppProps> = ({
             playerName: prev.playerName,
             playerMobile: prev.playerMobile,
             frozenSnakes: [],
-            stats: { snakesLanded: 0, snakesAvoided: 0, laddersClimbed: 0 }
+            stats: { snakesLanded: [], snakesAvoided: [], laddersClimbed: [] },
+            shieldBoughtOnCurrentTurn: false
         }));
     };
 
     const handlePlayAgain = () => {
         setGameState(prev => ({
-            playerPosition: 1,
+            playerPosition: 0,
             isGameOver: false,
             hasShield: false,
             lastDiceValue: 0,
@@ -262,7 +299,8 @@ const App: React.FC<AppProps> = ({
             playerName: prev.playerName,
             playerMobile: prev.playerMobile,
             frozenSnakes: [],
-            stats: { snakesLanded: 0, snakesAvoided: 0, laddersClimbed: 0 }
+            stats: { snakesLanded: [], snakesAvoided: [], laddersClimbed: [] },
+            shieldBoughtOnCurrentTurn: false
         }));
     };
 
@@ -310,7 +348,6 @@ const App: React.FC<AppProps> = ({
                     {gameState.currentScreen === 'event' && gameState.activeEvent && (
                         <EventOverlay
                             event={gameState.activeEvent}
-                            isShielded={gameState.hasShield}
                             onContinue={handleEventContinue}
                             onAddShield={gameState.activeEvent.type === 'snake' ? handleAddShield : undefined}
                         />

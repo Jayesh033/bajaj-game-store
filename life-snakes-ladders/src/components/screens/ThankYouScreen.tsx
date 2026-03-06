@@ -42,7 +42,7 @@ const ThankYouScreen: React.FC<ThankYouScreenProps> = ({ onReplay, playerName })
                 margin: '0 0 8px',
                 textAlign: 'center'
             }}>
-                Your family's path to protection has begun.
+                Your family's path to protection has begun
             </p>
 
             <p style={{
@@ -54,7 +54,7 @@ const ThankYouScreen: React.FC<ThankYouScreenProps> = ({ onReplay, playerName })
                 lineHeight: 1.4,
                 opacity: 0.95
             }}>
-                Our expert will connect with you shortly.
+                Our expert will connect with you shortly
             </p>
 
             {/* What happens next? */}
@@ -95,9 +95,6 @@ const ThankYouScreen: React.FC<ThankYouScreenProps> = ({ onReplay, playerName })
                 Play Again
             </button>
 
-            <div style={{ position: 'absolute', bottom: 20, left: 0, right: 0, textAlign: 'center', fontSize: 10, fontWeight: 800, letterSpacing: '0.22em', textTransform: 'uppercase', color: T.white, opacity: 0.3 }}>
-                Bajaj Life Insurance
-            </div>
         </div>
     );
 };
