@@ -71,11 +71,11 @@ export const URGENCY_MESSAGES = [
     '⚡ Fill the Life Goals buckets quickly, time is running!',
     '🔥 Hurry up! Secure your goals faster!',
     '⏳ Time is ticking! Match more tiles!',
-    '💪 Keep going! Your goals need you!',
-    '🎯 Focus! Fill those buckets before time runs out!',
+    '💪 Keep going! Your Goals need you!',
+    '🎯 Focus! Fill those Life Goals buckets before time runs out!',
 ];
 
-// ── Bucket Scoring ─────────────────────────────────────────────────────
+// ── Bucket Scoring ────────────────────────────────────────────────────
 
 // Increased to 400 to make the game challenging (approx 30-40 matches per bucket)
 export const BUCKET_MAX = 400;
