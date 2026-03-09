@@ -14,3 +14,5 @@ packages:
   - "secure-saga"
   - "life-snakes-ladders"
   - "life-flight"
+  - "one-life"
+  - "life-sorted"
