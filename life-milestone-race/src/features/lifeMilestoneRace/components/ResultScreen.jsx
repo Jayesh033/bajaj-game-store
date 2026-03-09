@@ -237,9 +237,9 @@ const ResultScreen = ({
                 </motion.div>
 
                 {/* Disclaimer */}
-                <div className="w-full px-4 mt-2 pb-2 opacity-60 shrink-0">
-                    <p className="text-[8px] sm:text-[10px] text-white/70 leading-tight text-center font-medium">
-                        <span className="font-bold text-white/90">Disclaimer:</span> The results shown in this game are indicative and based solely on the information provided by the participant. They are intended for engagement and awareness purposes only and do not constitute financial advice or a recommendation to purchase any life insurance product. Participants should seek independent professional advice before making any financial or insurance decisions. While due care has been taken in designing the game, Bajaj Life Insurance Ltd. assumes no liability for its outcomes.
+                <div className="w-full px-6 opacity-40 mt-4">
+                    <p className="text-[7px] sm:text-[8px] text-white leading-relaxed text-center font-bold max-w-[380px] mx-auto uppercase tracking-tighter">
+                        <span className="opacity-60 underline mr-1">Disclaimer:</span> The results shown in this game are indicative and based solely on the information provided by the participant. They are intended for engagement and awareness purposes only and do not constitute financial advice or a recommendation to purchase any life insurance product. Participants should seek independent professional advice before making any financial or insurance decisions. While due care has been taken in designing the game, Bajaj Life Insurance Ltd. assumes no liability for its outcomes.
                     </p>
                 </div>
 

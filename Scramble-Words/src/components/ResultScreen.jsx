@@ -171,6 +171,13 @@ export default function ResultScreen({ score, onRestart, onThankYou, firstName }
                         BOOK SLOT
                     </button>
 
+                    {/* Disclaimer */}
+                    <div className="w-full px-6 opacity-40 mt-4">
+                        <p className="text-[7px] sm:text-[8px] text-white leading-relaxed text-center font-bold max-w-[380px] mx-auto uppercase tracking-tighter">
+                            <span className="opacity-60 underline mr-1">Disclaimer:</span> The results shown in this game are indicative and based solely on the information provided by the participant. They are intended for engagement and awareness purposes only and do not constitute financial advice or a recommendation to purchase any life insurance product. Participants should seek independent professional advice before making any financial or insurance decisions. While due care has been taken in designing the game, Bajaj Life Insurance Ltd. assumes no liability for its outcomes.
+                        </p>
+                    </div>
+
                     {/* Try Again Button (Small - At Bottom) */}
                     <button
                         onClick={onRestart}

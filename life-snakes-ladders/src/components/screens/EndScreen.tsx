@@ -211,6 +211,13 @@ const EndScreen: React.FC<EndScreenProps> = ({ hasShield, playerName, playerMobi
                     Book a Slot
                 </button>
 
+                {/* Disclaimer */}
+                <div style={{ width: '100%', padding: '0 24px', opacity: 0.4, marginTop: 16 }}>
+                    <p style={{ fontSize: 8, color: '#fff', textAlign: 'center', fontWeight: 700, maxWidth: 380, margin: '0 auto', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '-0.02em' }}>
+                        <span style={{ opacity: 0.6, textDecoration: 'underline', marginRight: 4 }}>Disclaimer:</span> The results shown in this game are indicative and based solely on the information provided by the participant. They are intended for engagement and awareness purposes only and do not constitute financial advice or a recommendation to purchase any life insurance product. Participants should seek independent professional advice before making any financial or insurance decisions. While due care has been taken in designing the game, Bajaj Life Insurance Ltd. assumes no liability for its outcomes.
+                    </p>
+                </div>
+
                 {/* Play Again text link */}
                 <div style={{ textAlign: 'center', marginTop: 16 }}>
                     <button onClick={onPlayAgain} style={{
