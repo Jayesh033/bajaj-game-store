@@ -1,4 +1,5 @@
 import React from 'react';
+import lsBg from '../../assets/ls-bg.png';
 
 const GameLayout = ({ children, headerRight, footer, showTitle = true, variant = 'default', mainClassName = '' }) => {
     const renderBackground = () => {
@@ -6,7 +7,7 @@ const GameLayout = ({ children, headerRight, footer, showTitle = true, variant =
             return (
                 <div className="fixed inset-0 z-0 bg-black">
                     <img
-                        src="./src/assets/ls-bg.png"
+                        src={lsBg}
                         alt="Background"
                         className="w-full h-full object-fill"
                     />
