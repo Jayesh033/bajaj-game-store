@@ -48,10 +48,11 @@ const FinalScreen = ({ results, onRetry, leadData, onBookingSuccess }) => {
         const text = `Hi,\nI just tried this life finance sorting challenge — it really shows why savings, goals and risks shouldn't be mixed together.\nGive it a try: ${shareUrl}\n\n${senderName}`.trim();
         if (navigator.share) {
             try {
+                // We exclude 'url' here because it's already included in the 'text' 
+                // and some platforms (Android/WhatsApp) append it twice if both are sent.
                 await navigator.share({
                     title: 'Life Sorted 3D',
-                    text,
-                    url: shareUrl,
+                    text: text
                 });
             } catch (err) {
                 copyToClipboard(text);

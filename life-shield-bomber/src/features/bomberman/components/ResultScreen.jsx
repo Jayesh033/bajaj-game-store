@@ -109,7 +109,12 @@ const ResultScreen = memo(function ResultScreen({
         const shareText = `Hi,\nI just realized the importance of riders to protect from life risks. You should try this interesting game. ${shareUrl}\n\n${senderName}`.trim();
         try {
             if (navigator.share) {
-                await navigator.share({ title: 'Shield Man', text: shareText, url: shareUrl });
+                // We exclude 'url' here because it's already included in the 'text' 
+                // and some platforms (Android/WhatsApp) append it twice if both are sent.
+                await navigator.share({
+                    title: 'Shield Man',
+                    text: shareText
+                });
             } else {
                 await navigator.clipboard.writeText(shareText);
             }

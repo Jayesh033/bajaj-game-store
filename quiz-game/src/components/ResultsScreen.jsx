@@ -48,10 +48,11 @@ const ResultsScreen = ({ score, total, onRestart }) => {
 
         if (navigator.share) {
             try {
+                // We exclude 'url' here because it's already included in the 'text' 
+                // and some platforms (Android/WhatsApp) append it twice if both are sent.
                 await navigator.share({
                     title: 'GST Quiz',
-                    text: shareMessage,
-                    url: shareUrl,
+                    text: shareMessage
                 });
             } catch (error) {
                 console.log('Error sharing:', error);
