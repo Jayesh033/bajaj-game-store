@@ -44,7 +44,7 @@ const ResultsScreen = ({ score, total, onRestart }) => {
     const handleShare = async () => {
         const shareUrl = buildShareUrl() || window.location.href;
         const senderName = sessionStorage.getItem('gamification_emp_name') || '';
-        const shareMessage = `Hi,\nI tried this GST quiz related to Life Insurance and got ${score}/${total}.\nThink you can beat my score? Take the quiz here: ${shareUrl}\n\n${senderName}`.trim();
+        const shareMessage = `Hi,\nI tried this GST quiz related to Life Insurance and got ${Math.round(score)}/${total}.\nThink you can beat my score? Take the quiz here: ${shareUrl}\n\n${senderName}`.trim();
 
         if (navigator.share) {
             try {

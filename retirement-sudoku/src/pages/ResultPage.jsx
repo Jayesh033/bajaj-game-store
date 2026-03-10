@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { buildShareUrl } from '../utils/crypto';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -361,7 +361,7 @@ const ResultPage = memo(function ResultPage() {
     const handleShare = async () => {
         const shareUrl = buildShareUrl() || window.location.origin;
         const senderName = sessionStorage.getItem('gamification_emp_name') || '';
-        const text = `Hi,\nI managed to balance my retirement pillars and scored ${scenario.points !== undefined ? scenario.points : score} in this Sudoku-style retirement challenge.\nCan you beat my score? — try it here: ${shareUrl}\n\n${senderName}`.trim();
+        const text = `Hi,\nI managed to balance my retirement pillars and scored ${Math.round(scenario.points !== undefined ? scenario.points : score)} in this Sudoku-style retirement challenge.\nCan you beat my score? — try it here: ${shareUrl}\n\n${senderName}`.trim();
         if (navigator.share) {
             try {
                 await navigator.share({ title: 'Retirement Sudoku Score', text, url: shareUrl });

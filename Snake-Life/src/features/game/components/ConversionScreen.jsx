@@ -45,7 +45,7 @@ const ConversionScreen = ({ score, total = 20, leadData, onRestart, onBookSlot }
     const handleShare = async () => {
         const shareUrl = buildShareUrl() || window.location.href;
         const senderName = sessionStorage.getItem('gamification_emp_name') || '';
-        const shareMessage = `Hi,\nI built ${score} life milestones in this challenge.\nIt really makes you think about how much protection those milestones need — try it here: ${shareUrl}\n\nRegards,\n${senderName}`.trim();
+        const shareMessage = `Hi,\nI built ${Math.round(score)} life milestones in this challenge.\nIt really makes you think about how much protection those milestones need — try it here: ${shareUrl}\n\nRegards,\n${senderName}`.trim();
 
         if (navigator.share) {
             try {

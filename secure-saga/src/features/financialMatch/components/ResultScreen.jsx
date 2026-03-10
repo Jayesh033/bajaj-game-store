@@ -104,7 +104,7 @@ const ResultScreen = ({
 
     const handleShare = async () => {
         const shareUrl = buildShareUrl() || window.location.href;
-        const text = `Hi,\nI managed to fulfil ${displayScore}% of my bucket list. Fulfil your bucket list. Click here ${shareUrl}`.trim();
+        const text = `Hi,\nI managed to fulfil ${Math.round(displayScore)}% of my bucket list. Fulfil your bucket list. Click here ${shareUrl}`.trim();
         if (navigator.share) {
             try { await navigator.share({ title: 'Secure Saga', text, url: shareUrl }); } catch { }
         } else {

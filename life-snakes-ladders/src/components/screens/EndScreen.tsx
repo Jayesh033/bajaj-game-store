@@ -38,7 +38,7 @@ const EndScreen: React.FC<EndScreenProps> = ({ hasShield, playerName, playerMobi
             : '/');
 
         const senderName = typeof window !== 'undefined' ? sessionStorage.getItem('gamification_emp_name') || '' : '';
-        const shareText = `Hi,\nI used ${totalShieldsUsed} shields to avoid snakes in this life Snakes & Ladders challenge.\nIt really shows how protection helps in life's ups and downs — try it here: ${shareUrl}\n\n${senderName}`.trim();
+        const shareText = `Hi,\nI used ${Math.round(totalShieldsUsed)} shields to avoid snakes in this life Snakes & Ladders challenge.\nIt really shows how protection helps in life's ups and downs — try it here: ${shareUrl}\n\n${senderName}`.trim();
 
         const shareData = {
             title: 'Life Snakes and Ladders',

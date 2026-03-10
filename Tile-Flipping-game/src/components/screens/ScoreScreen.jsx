@@ -77,7 +77,7 @@ export default function ScoreScreen({ showToast }) {
 
         const shareData = {
             title: 'Insurance Match',
-            text: `Hi,\nMy memory score is ${scoreVal}. Find out yours ${shareUrl}\n\n${senderName}`.trim(),
+            text: `Hi,\nMy memory score is ${typeof scoreVal === 'number' ? Math.round(scoreVal) : scoreVal}. Find out yours ${shareUrl}\n\n${senderName}`.trim(),
             url: shareUrl
         };
 

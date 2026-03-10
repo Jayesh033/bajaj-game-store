@@ -132,7 +132,7 @@ export default function GameOverPage() {
     const handleShare = async () => {
         const shareUrl = buildShareUrl() || window.location.href;
         const senderName = sessionStorage.getItem('gamification_emp_name') || '';
-        const msg = `Hi,\nI just crossed ${score} financial hurdles in this challenge.\nSee how many you can cross — try it here: ${shareUrl}\n\n${senderName}`.trim();
+        const msg = `Hi,\nI just crossed ${Math.round(score)} financial hurdles in this challenge.\nSee how many you can cross — try it here: ${shareUrl}\n\n${senderName}`.trim();
         if (navigator.share) {
             try {
                 await navigator.share({ title: 'Life Flight', text: msg, url: shareUrl || undefined });
