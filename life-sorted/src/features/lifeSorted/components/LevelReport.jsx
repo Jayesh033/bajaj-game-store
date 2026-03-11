@@ -94,7 +94,7 @@ const LevelReport = ({ tubes, isWin, onNext, capacity }) => {
             <h2 className="text-3xl font-heading font-bold mb-2 text-white">{title}</h2>
             <p className="text-white/50 text-xs mb-8 leading-relaxed">{subtitle}</p>
 
-            <div className="w-full mb-8 overflow-y-auto max-h-[50vh] pr-1 custom-scrollbar">
+            <div className="w-full mb-8 overflow-y-auto max-h-[50dvh] pr-1 custom-scrollbar">
                 {categoryMapping.map((cat, idx) => (
                     <TubeReportCard
                         key={cat}
