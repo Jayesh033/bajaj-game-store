@@ -117,7 +117,7 @@ const ConversionScreen = ({ score, leadData, onBookSlot, onRestart }) => {
                 <footer className="footer-section">
                     <div className="bg-white p-4 shadow-2xl rounded-[12px] border border-slate-100 w-full mb-3">
                         <p className="text-slate-800 text-[11px] sm:text-xs font-black text-center leading-tight uppercase tracking-tight mb-3">
-                            Secure your family's future against unexcepted event. Connet with our realtionship manager now!
+                            Let's secure your family's future against unexcepted event 
                         </p>
                         <div className="flex flex-col gap-2.5">
                             <a href="tel:18002097272" className="block w-full">
