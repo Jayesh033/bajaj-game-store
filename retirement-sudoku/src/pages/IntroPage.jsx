@@ -134,11 +134,13 @@ const IntroPage = memo(function IntroPage() {
             }}
         >
             <div
-                className="relative w-full overflow-hidden"
+                className="relative w-full"
                 style={{
-                    height: '100dvh',
+                    minHeight: '100dvh',
                     maxWidth: '430px',
                     width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column'
                 }}
             >
                 {/* Cover Image */}
