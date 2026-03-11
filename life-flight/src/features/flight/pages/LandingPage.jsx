@@ -66,7 +66,8 @@ export default function LandingPage() {
     };
 
     const handleStartClick = () => {
-        setShowNamePopup(true);
+        // Lead popup disabled — start game directly
+        startGame();
     };
 
     const startGame = () => {

@@ -56,11 +56,8 @@ const WelcomeScreen = ({ onStart }) => {
     };
 
     const handleStartClick = () => {
-        if (!isLeadSubmitted) {
-            setIsOpen(true);
-        } else {
-            onStart();
-        }
+        // Lead popup disabled — start game directly
+        onStart();
     };
 
     return (

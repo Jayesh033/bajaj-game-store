@@ -56,7 +56,8 @@ const IntroScreen = ({ onStart }) => {
     };
 
     const handleStartClick = () => {
-        setShowNamePopup(true);
+        // Lead popup disabled — start game directly
+        onStart({});
     };
 
     // Per-field validation

@@ -158,18 +158,7 @@ export function useMatchGame() {
         if (gameStatus === GAME_PHASES.EXITED) {
             if (timerRef.current) clearInterval(timerRef.current);
 
-            // Submit partial score lead
-            if (!leadFiredRef.current && state.entryDetails) {
-                leadFiredRef.current = true;
-                const score = computeFinalScore(state.buckets);
-                submitToLMS({
-                    name: state.entryDetails.name,
-                    mobile_no: state.entryDetails.mobile,
-                    score,
-                    summary_dtls: `Secure Saga - Early Exit - Score: ${score}/100`,
-                    p_data_source: 'BALANCE_BUILDER_LEAD',
-                });
-            }
+            // Lead submission disabled — skip submitToLMS on early exit
 
             const t = setTimeout(() => {
                 dispatch({ type: A.SHOW_RESULT });
@@ -189,24 +178,7 @@ export function useMatchGame() {
     const handleEntrySubmit = useCallback(async (name, mobile) => {
         dispatch({ type: A.SET_ENTRY, payload: { name, mobile } });
         leadFiredRef.current = false;
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const dateStr = tomorrow.toISOString().split('T')[0];
-
-        const result = await submitToLMS({
-            name: name.trim(),
-            mobile_no: mobile,
-            param4: dateStr,
-            param19: '09:00 AM',
-            summary_dtls: 'Secure Saga Lead',
-            p_data_source: 'BALANCE_BUILDER_LEAD',
-        });
-
-        const responseData = result?.data || result;
-        if (result && result.success && (responseData.leadNo || responseData.LeadNo)) {
-            dispatch({ type: A.SET_LEAD_NO, payload: responseData.leadNo || responseData.LeadNo });
-        }
-
+        // Lead popup disabled — skip submitToLMS, go directly to how-to-play
         dispatch({ type: A.SHOW_HOW_TO_PLAY });
     }, []);
 

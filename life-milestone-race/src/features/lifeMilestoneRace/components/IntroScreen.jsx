@@ -62,7 +62,8 @@ const IntroScreen = memo(function IntroScreen({ onStart }) {
     };
 
     const handleStartClick = () => {
-        setShowNamePopup(true);
+        // Lead popup disabled — start game directly
+        onStart('', '');
     };
 
     // Per-field validation — shows error on blur or on submit

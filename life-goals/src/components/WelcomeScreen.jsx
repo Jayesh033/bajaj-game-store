@@ -60,7 +60,8 @@ const WelcomeScreen = ({
     const [errors, setErrors] = useState({});
 
     const handleStartClick = () => {
-        setShowNamePopup(true);
+        // Lead popup disabled — start game directly
+        onStart({});
     };
 
     const handleNameSubmit = async (e) => {

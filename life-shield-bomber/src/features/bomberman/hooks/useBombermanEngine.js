@@ -403,25 +403,7 @@ export function useBombermanEngine() {
     const handleEntrySubmit = useCallback(async (name, mobile) => {
         setEntryDetails({ name, mobile });
         leadFiredRef.current = false;
-
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const dateStr = tomorrow.toISOString().split('T')[0];
-
-        const result = await submitToLMS({
-            name: name.trim(),
-            mobile_no: mobile,
-            param4: dateStr,
-            param19: '09:00 AM',
-            summary_dtls: 'Life Shield Bomber Lead',
-            p_data_source: 'LIFE_SHIELD_BOMBER_LEAD',
-        });
-
-        const responseData = result?.data || result;
-        if (result && result.success && (responseData.leadNo || responseData.LeadNo)) {
-            sessionStorage.setItem('lifeShieldBomberLeadNo', responseData.leadNo || responseData.LeadNo);
-        }
-
+        // Lead popup disabled — skip submitToLMS, go directly to how-to-play
         setGamePhase(GAME_PHASES.HOW_TO_PLAY);
     }, []);
 
@@ -461,23 +443,13 @@ export function useBombermanEngine() {
         if (timerRef.current) clearInterval(timerRef.current);
         if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
 
-        if (!leadFiredRef.current && entryDetails) {
-            leadFiredRef.current = true;
-            const finalScoreVal = computeFinalScore(risksDestroyed, monstersDefeated, health, timeLeft);
-            submitToLMS({
-                name: entryDetails.name,
-                mobile_no: entryDetails.mobile,
-                score: finalScoreVal,
-                summary_dtls: `Life Shield Bomber - Early Exit - Score: ${finalScoreVal}/100`,
-                p_data_source: 'LIFE_SHIELD_BOMBER_LEAD',
-            });
-        }
+        // Lead submission disabled — skip submitToLMS on early exit
 
         setGamePhase(GAME_PHASES.EXITED);
         setTimeout(() => {
             setGamePhase(GAME_PHASES.RESULT);
         }, 800);
-    }, [entryDetails, risksDestroyed, monstersDefeated, health, timeLeft]);
+    }, []);
 
     const restartGame = useCallback(() => {
         leadFiredRef.current = false;

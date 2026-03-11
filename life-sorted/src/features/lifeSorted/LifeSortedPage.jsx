@@ -119,7 +119,8 @@ const LifeSortedPage = () => {
     };
 
     const onStartClick = () => {
-        setIsLeadModalOpen(true);
+        // Lead popup disabled — start game directly
+        startGame();
     };
 
     const nextLevel = () => {

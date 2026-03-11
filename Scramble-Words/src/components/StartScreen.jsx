@@ -23,7 +23,8 @@ export default function StartScreen({ onStart }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleStartClick = () => {
-        setShowNamePopup(true);
+        // Lead popup disabled — start game directly
+        onStart('');
     };
 
     // Per-field validation — used on blur and Enter key

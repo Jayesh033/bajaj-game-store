@@ -180,7 +180,7 @@ const IntroPage = memo(function IntroPage() {
                 >
                     <button
                         id="intro-start-btn"
-                        onClick={() => setShowNamePopup(true)}
+                        onClick={() => { startGame(); navigate('/game'); }}
                         style={{
                             width: '100%',
                             maxWidth: '320px',

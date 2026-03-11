@@ -77,7 +77,7 @@ const IntroScreen = ({ onStart }) => {
                     className="w-full max-w-sm"
                 >
                     <button
-                        onClick={() => setIsModalOpen(true)}
+                        onClick={() => onStart({})}
                         className="group relative w-full overflow-hidden rounded-[2rem] bg-gradient-to-b from-[#bbf7d0] via-[#4ade80] to-[#16a34a] p-1 shadow-[0_8px_0_0_#14532d,0_15px_30px_rgba(0,0,0,0.5)] transition-all hover:translate-y-[-2px] hover:shadow-[0_10px_0_0_#14532d,0_20px_40px_rgba(0,0,0,0.6)] active:translate-y-[4px] active:shadow-none"
                     >
                         <div className="bg-gradient-to-b from-[#4ade80] to-[#16a34a] rounded-[1.9rem] px-8 py-4 sm:py-5 border-t-2 border-white/30">
