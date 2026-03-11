@@ -18,7 +18,7 @@ fs.ensureDirSync(SHELL_GAMES_DIR);
 const games = [
   {
     name: "scramble-words",
-    source: path.join(ROOT_DIR, "scramble-words", "dist"),
+    source: path.join(ROOT_DIR, "Scramble-Words", "dist"),
     destination: path.join(SHELL_GAMES_DIR, "scramble-words"),
   },
   {
