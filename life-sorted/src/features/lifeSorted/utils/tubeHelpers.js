@@ -39,16 +39,30 @@ export const generateInitialTubes = (levelConfig) => {
     return tubes;
 };
 
-export const isTubeSorted = (tube, capacity) => {
-    if (tube.length === 0) return true; // Empty tube is "valid" but not a completed category tube
+export const isTubeSorted = (tube, capacity, expectedCategory = null) => {
+    if (tube.length === 0) return false;
     if (tube.length !== capacity) return false;
 
-    const category = tube[0].category;
-    return tube.every(segment => segment.category === category);
+    const actualCategory = tube[0].category;
+    const isUniform = tube.every(segment => segment.category === actualCategory);
+
+    if (!isUniform) return false;
+
+    // If an expected category is provided, it must match
+    if (expectedCategory && actualCategory !== expectedCategory) return false;
+
+    return true;
 };
 
 export const checkWin = (tubes, activeCategoriesCount, capacity) => {
-    // A level is won when every tube is either completely empty (0) or filled with 4 same-category segments
-    const completedTubes = tubes.filter(tube => tube.length === capacity && isTubeSorted(tube, capacity));
-    return completedTubes.length === activeCategoriesCount;
+    const categoryMapping = ['growth', 'safety', 'resp', 'risk', 'asset'];
+
+    // Each of the first N tubes must be sorted with its designated category
+    for (let i = 0; i < activeCategoriesCount; i++) {
+        const expectedCat = categoryMapping[i];
+        if (!isTubeSorted(tubes[i], capacity, expectedCat)) {
+            return false;
+        }
+    }
+    return true;
 };

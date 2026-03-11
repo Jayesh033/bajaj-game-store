@@ -424,139 +424,156 @@ const ResultPage = memo(function ResultPage() {
 
     return (
         <div
-            style={{ position: 'fixed', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(160deg, #0f172a 0%, #1e3a5f 55%, #0c1a2e 100%)', overflowY: 'auto' }}
+            style={{
+                position: 'fixed',
+                inset: 0,
+                background: 'linear-gradient(160deg, #0f172a 0%, #1e3a5f 55%, #0c1a2e 100%)',
+                overflowY: 'auto',
+                WebkitOverflowScrolling: 'touch'
+            }}
         >
             <div
-                className="w-full flex flex-col items-center justify-center px-4 py-6 text-center font-sans relative"
-                style={{ width: '100%', maxWidth: '430px', minHeight: '100%', flex: 1 }}
+                className="w-full flex flex-col items-center px-4 py-8 text-center font-sans relative"
+                style={{
+                    width: '100%',
+                    maxWidth: '430px',
+                    minHeight: '100dvh',
+                    margin: '0 auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}
             >
-                {/* Confetti */}
-                <Confetti />
+                {/* This wrapper ensures centering while preventing top-cutting if content > viewport */}
+                <div style={{ margin: 'auto 0', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    {/* Confetti */}
+                    <Confetti />
 
-                {/* Share button — top right */}
-                <button
-                    onClick={handleShare}
-                    className="absolute right-4 top-4 p-2 text-white/80 hover:text-white transition-colors z-20"
-                    title="Share Score"
-                >
-                    <Share2 className="w-5 h-5" />
-                </button>
-
-                {/* Main content — exactly like ResultScreen */}
-                <div className="w-full max-w-xs flex flex-col items-center z-10">
-
-                    {/* Greeting */}
-                    <motion.h1
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-2xl font-extrabold text-white tracking-widest uppercase leading-none mt-2"
+                    {/* Share button — top right */}
+                    <button
+                        onClick={handleShare}
+                        className="absolute right-4 top-4 p-2 text-white/80 hover:text-white transition-colors z-20"
+                        title="Share Score"
                     >
-                        Hi {userName}!
-                    </motion.h1>
+                        <Share2 className="w-5 h-5" />
+                    </button>
 
-                    <div className="h-3 shrink-0" />
+                    {/* Main content — exactly like ResultScreen */}
+                    <div className="w-full max-w-xs flex flex-col items-center z-10">
 
-                    {/* Subheading — "YOUR SCORE IS" row */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="text-xs font-semibold text-white/80 tracking-widest uppercase"
-                    >
-                        YOUR <span className="text-orange-500 font-extrabold text-sm mx-1">SCORE</span> IS
-                    </motion.div>
-
-                    <div className="h-4 shrink-0" />
-
-                    {/* Score Shield */}
-                    <div className="relative transform scale-[0.65] min-[375px]:scale-75 origin-center -my-10 -translate-y-2">
-                        <motion.div
-                            initial={{ scale: 0, rotate: -12 }}
-                            animate={{ scale: 1, rotate: 0 }}
-                            transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.25 }}
-                        >
-                            <ScoreShield tier={scenario} />
-                        </motion.div>
-                    </div>
-
-                    <div className="h-3 shrink-0" />
-
-                    {/* Subheading (Congrats! / Time's Up!) */}
-                    <h2 className="text-xl font-bold text-white tracking-wide leading-tight">
-                        {scenario.subheading}
-                    </h2>
-
-                    <div className="h-2 shrink-0" />
-
-                    {/* Message below shield */}
-                    <div className="w-full">
-                        <p className="text-white/90 text-base font-medium leading-snug px-2">
-                            {scenario.message}
-                        </p>
-                    </div>
-
-                    <div className="h-4 shrink-0" />
-
-                    {/* Action buttons */}
-                    <div className="w-full flex flex-col gap-3">
-
-                        {/* SHARE */}
-                        <motion.button
-                            onClick={handleShare}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.4 }}
-                            className="w-full h-11 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm uppercase tracking-wide rounded-xl shadow-sm flex items-center justify-center gap-2 border border-white/10 transition-all"
-                        >
-                            SHARE
-                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                                <path d="M14 5V2L22 9L14 16V13C7 13 4 15 2 20C4 12 7 8 14 8V5Z" />
-                            </svg>
-                        </motion.button>
-
-                        {/* Info text */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 5 }}
+                        {/* Greeting */}
+                        <motion.h1
+                            initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                            className="pt-1 pb-2"
+                            className="text-2xl font-extrabold text-white tracking-widest uppercase leading-none mt-2"
                         >
-                            <p className="text-white text-[16px] sm:text-[18px] leading-tight font-bold drop-shadow-md">
-                                Plan Your Happy Retirement With Us!
-                            </p>
+                            Hi {userName}!
+                        </motion.h1>
+
+                        <div className="h-3 shrink-0" />
+
+                        {/* Subheading — "YOUR SCORE IS" row */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-xs font-semibold text-white/80 tracking-widest uppercase"
+                        >
+                            YOUR <span className="text-orange-500 font-extrabold text-sm mx-1">SCORE</span> IS
                         </motion.div>
 
-                        {/* CALL NOW */}
-                        <button
-                            onClick={() => (window.location.href = 'tel:18002099999')}
-                            className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm uppercase tracking-wide rounded-xl shadow-sm flex items-center justify-center gap-2 border-2 border-transparent hover:border-white/20 transition-all"
-                        >
-                            <Phone className="w-4 h-4 fill-current" />
-                            CALL NOW
-                        </button>
+                        <div className="h-4 shrink-0" />
 
-                        {/* BOOK SLOT */}
-                        <button
-                            onClick={() => setIsModalOpen(true)}
-                            className="w-full h-11 bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm uppercase tracking-wide rounded-xl shadow-sm flex items-center justify-center gap-2 border-2 border-transparent hover:border-white/20 transition-all"
-                        >
-                            <Calendar className="w-4 h-4" />
-                            BOOK SLOT
-                        </button>
+                        {/* Score Shield */}
+                        <div className="relative transform scale-[0.65] min-[375px]:scale-75 origin-center -my-10 -translate-y-2">
+                            <motion.div
+                                initial={{ scale: 0, rotate: -12 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.25 }}
+                            >
+                                <ScoreShield tier={scenario} />
+                            </motion.div>
+                        </div>
 
-                        {/* Try Again */}
-                        <button
-                            onClick={() => { restartGame(); navigate('/game'); }}
-                            className="text-white/70 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors underline underline-offset-4 mt-1"
-                        >
-                            Try Again
-                        </button>
+                        <div className="h-3 shrink-0" />
 
-                        {/* Legal Disclaimer */}
-                        <p className="text-white/40 text-[0.6rem] leading-relaxed text-center px-1 mt-2">
-                            The results shown in this game are indicative and based solely on the information provided by the participant. They are intended for engagement and awareness purposes only and do not constitute financial advice or a recommendation to purchase any life insurance product. Participants should seek independent professional advice before making any financial or insurance decisions. While due care has been taken in designing the game, Bajaj Life Insurance Ltd. assumes no liability for its outcomes.
-                        </p>
+                        {/* Subheading (Congrats! / Time's Up!) */}
+                        <h2 className="text-xl font-bold text-white tracking-wide leading-tight">
+                            {scenario.subheading}
+                        </h2>
+
+                        <div className="h-2 shrink-0" />
+
+                        {/* Message below shield */}
+                        <div className="w-full">
+                            <p className="text-white/90 text-base font-medium leading-snug px-2">
+                                {scenario.message}
+                            </p>
+                        </div>
+
+                        <div className="h-4 shrink-0" />
+
+                        {/* Action buttons */}
+                        <div className="w-full flex flex-col gap-3">
+
+                            {/* SHARE */}
+                            <motion.button
+                                onClick={handleShare}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.4 }}
+                                className="w-full h-11 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm uppercase tracking-wide rounded-xl shadow-sm flex items-center justify-center gap-2 border border-white/10 transition-all"
+                            >
+                                SHARE
+                                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                    <path d="M14 5V2L22 9L14 16V13C7 13 4 15 2 20C4 12 7 8 14 8V5Z" />
+                                </svg>
+                            </motion.button>
+
+                            {/* Info text */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 5 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 }}
+                                className="pt-1 pb-2"
+                            >
+                                <p className="text-white text-[16px] sm:text-[18px] leading-tight font-bold drop-shadow-md">
+                                    Plan Your Happy Retirement With Us!
+                                </p>
+                            </motion.div>
+
+                            {/* CALL NOW */}
+                            <button
+                                onClick={() => (window.location.href = 'tel:18002099999')}
+                                className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm uppercase tracking-wide rounded-xl shadow-sm flex items-center justify-center gap-2 border-2 border-transparent hover:border-white/20 transition-all"
+                            >
+                                <Phone className="w-4 h-4 fill-current" />
+                                CALL NOW
+                            </button>
+
+                            {/* BOOK SLOT */}
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="w-full h-11 bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm uppercase tracking-wide rounded-xl shadow-sm flex items-center justify-center gap-2 border-2 border-transparent hover:border-white/20 transition-all"
+                            >
+                                <Calendar className="w-4 h-4" />
+                                BOOK SLOT
+                            </button>
+
+                            {/* Try Again */}
+                            <button
+                                onClick={() => { restartGame(); navigate('/game'); }}
+                                className="text-white/70 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors underline underline-offset-4 mt-1"
+                            >
+                                Try Again
+                            </button>
+
+                            {/* Legal Disclaimer */}
+                            <p className="text-white/40 text-[0.6rem] leading-relaxed text-center px-1 mt-2">
+                                The results shown in this game are indicative and based solely on the information provided by the participant. They are intended for engagement and awareness purposes only and do not constitute financial advice or a recommendation to purchase any life insurance product. Participants should seek independent professional advice before making any financial or insurance decisions. While due care has been taken in designing the game, Bajaj Life Insurance Ltd. assumes no liability for its outcomes.
+                            </p>
+                        </div>
                     </div>
+
                 </div>
 
                 {/* Booking Modal */}

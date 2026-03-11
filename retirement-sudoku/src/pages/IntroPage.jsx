@@ -134,11 +134,13 @@ const IntroPage = memo(function IntroPage() {
             }}
         >
             <div
-                className="relative w-full overflow-hidden"
+                className="relative w-full"
                 style={{
-                    height: '100dvh',
+                    minHeight: '100dvh',
                     maxWidth: '430px',
                     width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column'
                 }}
             >
                 {/* Cover Image */}
@@ -248,7 +250,7 @@ const IntroPage = memo(function IntroPage() {
                                         Welcome!
                                     </h2>
                                     <p className="text-slate-500 font-bold text-xs min-[375px]:text-sm sm:text-base">
-                                        Enter your details to start.
+                                        Enter your details to start
                                     </p>
                                 </div>
 
